@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:paddingBottom="0dp"
+	android:layout_marginBottom="0dp">
+	<TextView
+		android:background="@android:drawable/title_bar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/app_name"
+		android:textColor="#FFF"
+		android:textStyle="bold"
+		android:gravity="center_vertical"
+		android:id="@+id/titlebar" />
+	<LinearLayout
+		android:id="@+id/touchpad"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="horizontal"
+		android:paddingBottom="0dp"
+		android:layout_marginBottom="0dp"
+		android:gravity="bottom">
+
+		<Button
+			android:id="@+id/mouseLeft"
+			android:layout_width="fill_parent"
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:focusable="false"
+			android:clickable="false"
+			android:background="@drawable/touchpad_button"
+			android:paddingBottom="0dp"
+			android:layout_marginBottom="0dp" />
+		<ImageButton
+			android:id="@+id/showKeyboard"
+			android:layout_width="40dp"
+			android:layout_height="28dp"
+			android:clickable="false"
+			android:focusable="false"
+			android:src="@drawable/keyboard"
+			android:scaleType="fitXY"
+			android:background="#000000"
+			android:paddingLeft="5dp"
+			android:paddingRight="5dp"
+			android:layout_weight="0" />
+		<Button
+			android:id="@+id/mouseRight"
+			android:layout_width="fill_parent"
+			android:layout_height="50dp"
+			android:clickable="false"
+			android:focusable="false"
+			android:layout_weight="1"
+			android:background="@drawable/touchpad_button"
+			android:paddingBottom="0dp"
+			android:layout_marginBottom="0dp" />
+
+
+	</LinearLayout>
+
+</LinearLayout>
