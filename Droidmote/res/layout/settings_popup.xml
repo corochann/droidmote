@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="300dp"
+	android:layout_height="wrap_content"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
+	android:padding="0dp">
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="50dp"
+		android:paddingTop="10dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp">
+
+		<TextView
+			android:text="@string/settings"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textStyle="bold"
+			android:textSize="18dp"
+			android:layout_weight="1"
+			android:textColor="#FFF" />
+		<Button
+			android:id="@+id/btScanQR"
+			android:text="@string/scanSettings"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0" />
+
+
+	</LinearLayout>
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="#FFF"
+		android:layout_marginBottom="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="13dp" />
+	<ScrollView
+
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<LinearLayout
+
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:orientation="vertical"
+			android:padding="10dp">
+
+			<TableLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:stretchColumns="1">
+
+
+				<TableRow>
+					<TextView
+						android:text="@string/setPort"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp" />
+					<EditText
+						android:id="@+id/edPort"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:inputType="numberDecimal" />
+				</TableRow>
+
+				<TableRow>
+					<TextView
+						android:text="@string/setProtocol"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:paddingRight="10dp" />
+					<Spinner
+						android:id="@+id/spProtocol"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content" />
+				</TableRow>
+			</TableLayout>
+
+			<TextView
+				android:id="@+id/tvIP"
+				android:layout_marginTop="10dp"
+				android:text="@string/setIP"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" />
+			<EditText
+				android:id="@+id/edIp"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textNoSuggestions"
+				android:maxLines="1" />
+			<TextView
+				android:id="@+id/tvGroup"
+				android:layout_marginTop="10dp"
+				android:text="@string/setGroup"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content" />
+			<EditText
+				android:id="@+id/edGroup"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:inputType="textNoSuggestions"
+				android:maxLines="1" />
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content">
+				<Button
+					android:id="@+id/ok"
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+					android:text="@string/save"
+					android:layout_weight="1" />
+				<Button
+					android:id="@+id/cancel"
+					android:layout_height="wrap_content"
+					android:layout_width="fill_parent"
+					android:text="@string/cancel"
+					android:layout_weight="1" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
