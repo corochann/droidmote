@@ -44,7 +44,9 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 		touchpad = (LinearLayout) findViewById(R.id.touchpad);
 		touchpad.setOnTouchListener(this);
 		imgr = (InputMethodManager) getSystemService(TouchPad.INPUT_METHOD_SERVICE);
+		checkWiFi();
 	}
+
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -68,20 +70,20 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			Intent i = new Intent();
 			switch (keyCode) {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_MOUSE_PRESS);
 				i.putExtra("value", Commands.VALUE_MOUSE_LEFT);
 				sendBroadcast(i);
 				return true;
 			case KeyEvent.KEYCODE_DEL:
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_KEY_EVENT_ID);
 				i.putExtra("value", "VK_BACK_SPACE");
 				sendBroadcast(i);
 				return true;
 			case KeyEvent.KEYCODE_ENTER:
 				Log.d(TAG, "key Enter");
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_KEY_EVENT_ID);
 				i.putExtra("value", "VK_ENTER");
 				sendBroadcast(i);
@@ -89,7 +91,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			}
 
 			if (utfCode != 0) {
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_UTF8);
 				i.putExtra("value", utfCode + "");
 				Log.d(TAG, "key UTF8 - " + utfCode);
@@ -107,7 +109,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			Log.d(TAG, "onKeyUp " + keyCode);
 			if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 				Intent i = new Intent();
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_MOUSE_RELEASE);
 				i.putExtra("value", Commands.VALUE_MOUSE_LEFT);
 				sendBroadcast(i);
@@ -124,7 +126,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 				buttonPressed = 1;
 				btMouseLeft.setBackgroundResource(R.drawable.touchpad_button2);
 				Intent i = new Intent();
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_MOUSE_PRESS);
 				i.putExtra("value", Commands.VALUE_MOUSE_LEFT);
 				sendBroadcast(i);
@@ -135,7 +137,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 				buttonPressed = 2;
 				btMouseRight.setBackgroundResource(R.drawable.touchpad_button2);
 				Intent i = new Intent();
-				i.setAction(ProfileEdit.ACTION);
+				i.setAction(ACTION);
 				i.putExtra("type", Commands.COMMAND_MOUSE_PRESS);
 				i.putExtra("value", Commands.VALUE_MOUSE_RIGHT);
 				sendBroadcast(i);
@@ -170,7 +172,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 
 			String value = x + ";" + y;
 			Intent i = new Intent();
-			i.setAction(ProfileEdit.ACTION);
+			i.setAction(ACTION);
 			i.putExtra("type", Commands.COMMAND_MOUSE_MOVE);
 			i.putExtra("value", value);
 			sendBroadcast(i);
@@ -180,7 +182,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			btMouseLeft.setBackgroundResource(R.drawable.touchpad_button);
 			if (buttonPressed == 1) {
 				Intent i2 = new Intent();
-				i2.setAction(ProfileEdit.ACTION);
+				i2.setAction(ACTION);
 				i2.putExtra("type", Commands.COMMAND_MOUSE_RELEASE);
 				i2.putExtra("value", Commands.VALUE_MOUSE_LEFT);
 				sendBroadcast(i2);
@@ -190,7 +192,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			}
 			if (buttonPressed == 2) {
 				Intent i2 = new Intent();
-				i2.setAction(ProfileEdit.ACTION);
+				i2.setAction(ACTION);
 				i2.putExtra("type", Commands.COMMAND_MOUSE_RELEASE);
 				i2.putExtra("value", Commands.VALUE_MOUSE_RIGHT);
 				sendBroadcast(i2);
@@ -206,7 +208,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 			releasedTime1 = System.currentTimeMillis();
 			if (releasedTime1 - pressedTime1 < TIME_MOUSE_CLICK) {
 				Intent i2 = new Intent();
-				i2.setAction(ProfileEdit.ACTION);
+				i2.setAction(ACTION);
 				i2.putExtra("type", Commands.COMMAND_MOUSE_CLICK);
 				if (Math.abs(pressedTime1 - pressedTime2) < TIME_MOUSE_CLICK / 2 && Math.abs(releasedTime1 - releasedTime2) < TIME_MOUSE_CLICK / 2)
 					i2.putExtra("value", Commands.VALUE_MOUSE_MIDDLE);
@@ -228,7 +230,6 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 		}
 
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

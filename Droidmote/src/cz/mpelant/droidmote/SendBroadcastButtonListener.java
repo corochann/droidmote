@@ -31,7 +31,7 @@ public class SendBroadcastButtonListener implements OnClickListener {
 				do {
 					i++;
 					String tmp = actions.getString(colAction);
-					Log.d(ProfileEdit.TAG, "getting action for button " + buttonId + " action:" + tmp);
+					Log.d(SuperActivity.TAG, "getting action for button " + buttonId + " action:" + tmp);
 					action += append + tmp;
 					append = ";";
 				} while (actions.moveToNext());
@@ -54,10 +54,10 @@ public class SendBroadcastButtonListener implements OnClickListener {
 		data.open();
 		if (retrieveData()) {
 			Intent i = new Intent();
-			i.setAction(ProfileEdit.ACTION);
+			i.setAction(SuperActivity.ACTION);
 			i.putExtra("type", type);
 			i.putExtra("value", action);
-			Log.d(ProfileEdit.TAG, "sending broadcast for " + action + "; type= " + type);
+			Log.d(SuperActivity.TAG, "sending broadcast for " + action + "; type= " + type);
 			mContext.sendBroadcast(i);
 		}
 		data.close();

@@ -66,7 +66,14 @@
 		name="qr_not_found_message">V telefonu nemáte nainstalovanou čtečku QR kodů. Nainstalovat z Marketu?</string>
 	<string
 		name="screenLockOn">Deaktivovat ScreenLock</string>
-		<string
+	<string
 		name="screenLockOff">Aktivovat ScreenLock</string>
+	<string
+		name="wifi_dialog_title">Aktivovat WiFi?</string>
+	<string
+		name="wifi_dialog_message">Nejste připojeni k žádné WiFi síti - Droidmote nebude s největší pravděpodobností fungovat.
+		Chcete se nyní připojit k WiFi?</string>
+	<string
+		name="wifi_dialog_ok">Připojit</string>
 
 </resources>

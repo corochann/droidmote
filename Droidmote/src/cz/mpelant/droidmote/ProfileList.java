@@ -75,9 +75,9 @@ public class ProfileList extends Activity {
 					data.open();
 					data.deleteProfile(item.id);
 					data.close();
-					if(PreferenceManager.getDefaultSharedPreferences(ProfileList.this).getLong(ProfileEdit.DATA_LAST_PROFILE, -1)==item.id){
+					if(PreferenceManager.getDefaultSharedPreferences(ProfileList.this).getLong(SuperActivity.DATA_LAST_PROFILE, -1)==item.id){
 						Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileList.this).edit();
-						editor.remove(ProfileEdit.DATA_LAST_PROFILE);
+						editor.remove(SuperActivity.DATA_LAST_PROFILE);
 						editor.commit();
 					}
 					loadData();
