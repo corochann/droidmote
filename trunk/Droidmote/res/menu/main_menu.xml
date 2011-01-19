@@ -30,6 +30,7 @@
 		android:icon="@drawable/ic_menu_fullscreen" />
 	<item
 		android:id="@+id/toggleScreenLock"
+		android:icon="@drawable/ic_menu_screenlock"
 	 />
 
 
