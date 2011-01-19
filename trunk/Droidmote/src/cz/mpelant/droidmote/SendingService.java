@@ -48,15 +48,15 @@ public class SendingService extends Service {
 		String command = type + ":" + value;
 		// Log.d(TAG, "command: " + command);
 
-		int protocol = PreferenceManager.getDefaultSharedPreferences(this).getInt(ProfileEdit.DATA_PROTOCOL, ProfileEdit.DEFAULT_PROTOCOL);
-		int port = PreferenceManager.getDefaultSharedPreferences(this).getInt(ProfileEdit.DATA_PORT, ProfileEdit.DEFAULT_PORT);
+		int protocol = PreferenceManager.getDefaultSharedPreferences(this).getInt(SuperActivity.DATA_PROTOCOL, SuperActivity.DEFAULT_PROTOCOL);
+		int port = PreferenceManager.getDefaultSharedPreferences(this).getInt(SuperActivity.DATA_PORT, SuperActivity.DEFAULT_PORT);
 		try {
-			if (protocol == ProfileEdit.PROTOCOL_TCP) {
-				String IP = PreferenceManager.getDefaultSharedPreferences(this).getString(ProfileEdit.DATA_IP, ProfileEdit.DEFAULT_IP);
+			if (protocol == SuperActivity.PROTOCOL_TCP) {
+				String IP = PreferenceManager.getDefaultSharedPreferences(this).getString(SuperActivity.DATA_IP, SuperActivity.DEFAULT_IP);
 				SendCommandTCP sendCommand = new SendCommandTCP(IP, port);
 				sendCommand.execute(command);
 			} else {
-				String address = PreferenceManager.getDefaultSharedPreferences(this).getString(ProfileEdit.DATA_UDP_ADDRESS, ProfileEdit.DEFAULT_UDP_ADDRESS);
+				String address = PreferenceManager.getDefaultSharedPreferences(this).getString(SuperActivity.DATA_UDP_ADDRESS, SuperActivity.DEFAULT_UDP_ADDRESS);
 				SendCommandUDP sendCommand = new SendCommandUDP(address, port);
 				sendCommand.execute(command);
 			}

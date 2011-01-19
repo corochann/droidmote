@@ -27,7 +27,7 @@ public class ProfileView extends SuperActivity {
 			profileId = intent.getLongExtra(ProfileEdit.EXTRA_PROFILE_ID, -1);
 		}
 		if (profileId == -1) {
-			profileId = sp.getLong(ProfileEdit.DATA_LAST_PROFILE, -1);
+			profileId = sp.getLong(DATA_LAST_PROFILE, -1);
 		}
 		if (profileId == -1) {
 			Intent i = new Intent(this, ProfileList.class);
@@ -36,7 +36,7 @@ public class ProfileView extends SuperActivity {
 		}
 
 		Editor editor = sp.edit();
-		editor.putLong(ProfileEdit.DATA_LAST_PROFILE, profileId);
+		editor.putLong(DATA_LAST_PROFILE, profileId);
 		editor.commit();
 
 		setContentView(R.layout.button_view);
@@ -83,7 +83,7 @@ public class ProfileView extends SuperActivity {
 		Cursor cursor = data.fetchProfile(profileId);
 		if (cursor == null || cursor.getCount() < 1) {
 			Editor editor = sp.edit();
-			editor.remove(ProfileEdit.DATA_LAST_PROFILE);
+			editor.remove(DATA_LAST_PROFILE);
 			editor.commit();
 			data.close();
 			finish();
@@ -95,7 +95,7 @@ public class ProfileView extends SuperActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		case ProfileEdit.EDIT_REQ_CODE:
+		case EDIT_REQ_CODE:
 			loadData();
 			break;
 		}
@@ -116,7 +116,7 @@ public class ProfileView extends SuperActivity {
 		case R.id.editProfile:
 			i = new Intent(this, ProfileEdit.class);
 			i.putExtra(ProfileEdit.EXTRA_PROFILE_ID, profileId);
-			startActivityForResult(i, ProfileEdit.EDIT_REQ_CODE);
+			startActivityForResult(i, EDIT_REQ_CODE);
 			break;
 		case R.id.deleteProfile:
 			AlertDialog.Builder deleteBuilder = new AlertDialog.Builder(this);
@@ -130,7 +130,7 @@ public class ProfileView extends SuperActivity {
 					data.deleteProfile(profileId);
 					data.close();
 					Editor editor = sp.edit();
-					editor.remove(ProfileEdit.DATA_LAST_PROFILE);
+					editor.remove(DATA_LAST_PROFILE);
 					editor.commit();
 					Intent i = new Intent(ProfileView.this, ProfileList.class);
 					i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

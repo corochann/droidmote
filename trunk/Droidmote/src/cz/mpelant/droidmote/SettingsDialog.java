@@ -42,12 +42,12 @@ public class SettingsDialog {
 
 		spProtocol = (Spinner) dialog.findViewById(R.id.spProtocol);
 		spProtocol.setAdapter(items);
-		spProtocol.setSelection(PreferenceManager.getDefaultSharedPreferences(mContext).getInt(ProfileEdit.DATA_PROTOCOL, ProfileEdit.DEFAULT_PROTOCOL));
+		spProtocol.setSelection(PreferenceManager.getDefaultSharedPreferences(mContext).getInt(SuperActivity.DATA_PROTOCOL, SuperActivity.DEFAULT_PROTOCOL));
 		spProtocol.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				if (position == ProfileEdit.PROTOCOL_TCP) {
+				if (position == SuperActivity.PROTOCOL_TCP) {
 					dialog.findViewById(R.id.tvIP).setVisibility(View.VISIBLE);
 					textIP.setVisibility(View.VISIBLE);
 
@@ -70,20 +70,20 @@ public class SettingsDialog {
 		});
 
 		textIP = (EditText) dialog.findViewById(R.id.edIp);
-		textIP.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getString(ProfileEdit.DATA_IP, ProfileEdit.DEFAULT_IP));
+		textIP.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getString(SuperActivity.DATA_IP, SuperActivity.DEFAULT_IP));
 
 		textGroup = (EditText) dialog.findViewById(R.id.edGroup);
-		textGroup.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getString(ProfileEdit.DATA_UDP_ADDRESS, ProfileEdit.DEFAULT_UDP_ADDRESS));
+		textGroup.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getString(SuperActivity.DATA_UDP_ADDRESS, SuperActivity.DEFAULT_UDP_ADDRESS));
 
 		port = (EditText) dialog.findViewById(R.id.edPort);
-		port.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getInt(ProfileEdit.DATA_PORT, ProfileEdit.DEFAULT_PORT) + "");
+		port.setText(PreferenceManager.getDefaultSharedPreferences(mContext).getInt(SuperActivity.DATA_PORT, SuperActivity.DEFAULT_PORT) + "");
 
 		Button save = (Button) dialog.findViewById(R.id.ok);
 		save.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				int portInt = ProfileEdit.DEFAULT_PORT;
+				int portInt = SuperActivity.DEFAULT_PORT;
 				try {
 					portInt = Integer.parseInt(port.getText().toString());
 				} catch (Exception e) {
@@ -95,13 +95,13 @@ public class SettingsDialog {
 					return;
 				}
 				Editor editor = PreferenceManager.getDefaultSharedPreferences(mContext).edit();
-				editor.putString(ProfileEdit.DATA_IP, textIP.getText().toString());
-				editor.putString(ProfileEdit.DATA_UDP_ADDRESS, textGroup.getText().toString());
-				editor.putInt(ProfileEdit.DATA_PORT, portInt);
-				editor.putInt(ProfileEdit.DATA_PROTOCOL, (int) spProtocol.getSelectedItemId());
+				editor.putString(SuperActivity.DATA_IP, textIP.getText().toString());
+				editor.putString(SuperActivity.DATA_UDP_ADDRESS, textGroup.getText().toString());
+				editor.putInt(SuperActivity.DATA_PORT, portInt);
+				editor.putInt(SuperActivity.DATA_PROTOCOL, (int) spProtocol.getSelectedItemId());
 
 				editor.commit();
-				mContext.removeDialog(ProfileEdit.DIALOG_SETTINGS);
+				mContext.removeDialog(SuperActivity.DIALOG_SETTINGS);
 
 			}
 		});
@@ -114,7 +114,7 @@ public class SettingsDialog {
 				Intent intent = new Intent("com.google.zxing.client.android.SCAN");
 				intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
 				try {
-					mContext.startActivityForResult(intent, ProfileEdit.DECODE_QR_REQ_CODE);
+					mContext.startActivityForResult(intent, SuperActivity.DECODE_QR_REQ_CODE);
 				} catch (ActivityNotFoundException e) {
 					AlertDialog.Builder d = new AlertDialog.Builder(mContext);
 					d.setTitle(R.string.qr_not_found_title);
@@ -138,7 +138,7 @@ public class SettingsDialog {
 
 			@Override
 			public void onClick(View v) {
-				mContext.removeDialog(ProfileEdit.DIALOG_SETTINGS);
+				mContext.removeDialog(SuperActivity.DIALOG_SETTINGS);
 			}
 		});
 
@@ -146,7 +146,7 @@ public class SettingsDialog {
 
 			@Override
 			public void onCancel(DialogInterface dialog) {
-				mContext.removeDialog(ProfileEdit.DIALOG_SETTINGS);
+				mContext.removeDialog(SuperActivity.DIALOG_SETTINGS);
 
 			}
 		});
@@ -159,9 +159,9 @@ public class SettingsDialog {
 		String[] parts = contents.split(";");
 
 		if (parts[0].contains("TCP")) {
-			spProtocol.setSelection(ProfileEdit.PROTOCOL_TCP);
+			spProtocol.setSelection(SuperActivity.PROTOCOL_TCP);
 		} else if (parts[0].contains("UDP")) {
-			spProtocol.setSelection(ProfileEdit.PROTOCOL_UDP);
+			spProtocol.setSelection(SuperActivity.PROTOCOL_UDP);
 		}
 		if (textIP != null) {
 			textIP.setText(parts[1]);
