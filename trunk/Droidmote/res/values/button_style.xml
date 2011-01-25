@@ -5,6 +5,8 @@
 		<item
 			name="android:background">@drawable/button</item>
 		<item
+			name="android:textColor">#FFFFFF</item>
+		<item
 			name="android:layout_margin">2dp</item>
 
 	</style>
