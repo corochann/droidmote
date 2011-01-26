@@ -22,7 +22,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class SettingsDialog {
-	private Dialog dialog;
+	public Dialog dialog;
 	private EditText textIP;
 	private EditText textGroup;
 	private Spinner spProtocol;
@@ -174,4 +174,5 @@ public class SettingsDialog {
 			textGroup.setText(parts[3]);
 		}
 	}
+	
 }
