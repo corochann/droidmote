@@ -49,7 +49,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 100);
+		this.setResizable(false);
+		this.setSize(300, getHeight());
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -202,7 +203,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
 				break;
 			}
-			// TODO: zavrit UDP
 		} else {
 			System.exit(0);
 		}
