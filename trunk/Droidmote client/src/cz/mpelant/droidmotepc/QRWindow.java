@@ -34,6 +34,7 @@ public class QRWindow extends JFrame {
 	private QRGenerator qrGenerator;
 	private JCheckBox jrbUDP;
 	private JCheckBox jrbTCP;
+	private MainWindow mainWindow;
 
 	class QRPanel extends JPanel {
 		/**
@@ -54,9 +55,10 @@ public class QRWindow extends JFrame {
 	/**
 	 * This is the default constructor
 	 */
-	public QRWindow() {
+	public QRWindow(MainWindow mainWindow) {
 		super();
 		initialize();
+		this.mainWindow=mainWindow;
 
 	}
 
@@ -241,6 +243,7 @@ public class QRWindow extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					saveSettings();
 					refreshQR();
+					mainWindow.restartServers();
 				}
 			});
 		}
@@ -272,7 +275,7 @@ public class QRWindow extends JFrame {
 			QRWindow.this.pack();
 			Dimension dimFrameWithoutQR = QRWindow.this.getSize();
 			QRCode.setVisible(true);
-			Dimension dimNewImg = new Dimension(img.getWidth(null)+10, dimFrameWithoutQR.height + img.getHeight(null));
+			Dimension dimNewImg = new Dimension(img.getWidth(null) + 10, dimFrameWithoutQR.height + img.getHeight(null));
 			if (dimNewImg.width < dimFrameWithoutQR.width)
 				dimNewImg.width = dimFrameWithoutQR.width;
 			QRWindow.this.setSize(dimNewImg);

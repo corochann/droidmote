@@ -8,29 +8,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class MainWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
-	private JTextArea statusText = null;
-	private JPanel statusTextPanel = null;
 	private JButton startStop = null;
 	private JButton buttonSettings = null;
 	private JPanel top = null;
 
 	private ServerTCP serverTCP = null;
 	private ServerUDP serverUDP = null;
-	private Thread threadTCP = null;
-	private Thread threadUDP = null;
+
 
 	/**
 	 * This is the default constructor
@@ -38,13 +32,8 @@ public class MainWindow extends JFrame implements ActionListener {
 	public MainWindow() {
 		super();
 		initialize();
-		try {
-			serverTCP = new ServerTCP(SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT), this);
-			serverUDP = new ServerUDP(SharedPreferences.getString(SharedPreferences.DATA_UDP_ADDRESS, SharedPreferences.DEFAULT_UDP_ADDRESS), SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT), this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		serverTCP = new ServerTCP(this);
+		serverUDP = new ServerUDP(this);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -60,7 +49,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		this.setSize(300, 100);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -74,31 +63,14 @@ public class MainWindow extends JFrame implements ActionListener {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(new BorderLayout());
-			jContentPane.add(getStatusText(), BorderLayout.CENTER);
+			// jContentPane.add(getStatusText(), BorderLayout.CENTER);
 			jContentPane.add(getTop(), BorderLayout.NORTH);
 
 		}
 		return jContentPane;
 	}
 
-	/**
-	 * This method initializes statusText
-	 * 
-	 * @return javax.swing.JTextPane
-	 */
-	private JPanel getStatusText() {
-		if (statusText == null) {
-			statusText = new JTextArea();
-			statusText.setEditable(false);
-			JScrollPane scrollingArea = new JScrollPane(statusText);
-			statusTextPanel = new JPanel();
-			statusTextPanel.setLayout(new BorderLayout());
-			statusTextPanel.add(scrollingArea, BorderLayout.CENTER);
-			statusTextPanel.setAutoscrolls(true);
-			statusTextPanel.repaint();
-		}
-		return statusTextPanel;
-	}
+
 
 	private JPanel getTop() {
 		if (top == null) {
@@ -146,7 +118,7 @@ public class MainWindow extends JFrame implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					QRWindow qr = new QRWindow();
+					QRWindow qr = new QRWindow(MainWindow.this);
 					qr.pack();
 					qr.setVisible(true);
 
@@ -157,95 +129,73 @@ public class MainWindow extends JFrame implements ActionListener {
 		return buttonSettings;
 	}
 
+	private void startServers(){
+		if (SharedPreferences.getBoolean(SharedPreferences.DATA_TCP_LISTENER, SharedPreferences.DEFAULT_TCP_LISTENER))
+			startTCPListener();
+		if (SharedPreferences.getBoolean(SharedPreferences.DATA_UDP_LISTENER, SharedPreferences.DEFAULT_UDP_LISTENER))
+			startUDPListener();
+	}
+	
+	private void stopServers(){
+		stopTCPListener();
+		stopUDPListener();
+	}
+	
+	public synchronized void restartServers(){
+		if (serverUDP.isRunning() || serverTCP.isRunning()) {
+			stopServers();
+			startServers();
+		} 
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (serverUDP.isRunning() || serverTCP.isRunning()) {
-			stopTCPListener();
-			stopUDPListener();
-			setButtonText("start");
+			stopServers();
 		} else {
-			if (SharedPreferences.getBoolean(SharedPreferences.DATA_TCP_LISTENER, SharedPreferences.DEFAULT_TCP_LISTENER))
-				startTCPListener();
-			if (SharedPreferences.getBoolean(SharedPreferences.DATA_UDP_LISTENER, SharedPreferences.DEFAULT_UDP_LISTENER))
-				startUDPListener();
+			startServers();
 		}
 
 	}
 
 	private void stopUDPListener() {
-		try {
-
-			serverUDP.stop = true;
-			threadUDP.interrupt();
-			serverUDP.closeSocket();
-
-		} catch (Exception e1) {
-
-		}
+		serverUDP.stop();
 	}
 
 	private void stopTCPListener() {
-		try {
-
-			serverTCP.stop = true;
-			threadTCP.interrupt();
-			serverTCP.closeSocket();
-
-		} catch (Exception e1) {
-
-		}
+		serverTCP.stop();
 	}
 
 	private void startUDPListener() {
-		try {
-
-			println("Starting UDP server...");
-
-			serverUDP.connect(SharedPreferences.getString(SharedPreferences.DATA_UDP_ADDRESS, SharedPreferences.DEFAULT_UDP_ADDRESS), SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
-			threadUDP = new Thread(serverUDP);
-			threadUDP.start();
-
-		} catch (Exception e1) {
-
-		}
+		println("Starting UDP server...");
+		serverUDP.start(SharedPreferences.getString(SharedPreferences.DATA_UDP_ADDRESS, SharedPreferences.DEFAULT_UDP_ADDRESS), SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
 	}
 
 	private void startTCPListener() {
-		try {
-
-			println("Starting TCP server...");
-			serverTCP.connect(SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
-			threadTCP = new Thread(serverTCP);
-			threadTCP.start();
-		} catch (Exception e1) {
-
-		}
+		println("Starting TCP server...");
+		serverTCP.start(SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
 	}
 
-	public synchronized void setButtonText(String text) {
-		try {
-			startStop.setText(text);
-		} catch (Exception e) {
-		}
+	public synchronized void updateButtonText(){
+		if (serverTCP.isRunning() || serverUDP.isRunning()) 
+			startStop.setText("Stop");
+		else
+			startStop.setText("Start");
 	}
 
 	public synchronized void println(String text) {
 		try {
-			statusText.append(text + '\n');
-			statusTextPanel.repaint();
+			System.out.println(text);
 		} catch (Exception e) {
 		}
 
 	}
 
 	public void onClose() {
-		if (serverTCP.isRunning() && threadTCP.isAlive() || serverUDP.isRunning() && threadUDP.isAlive()) {
+		if (serverTCP.isRunning() || serverUDP.isRunning()) {
 			switch (JOptionPane.showConfirmDialog(MainWindow.this, "Opravdu chcete ukoncit program?", "Ukoncovaci dialog", JOptionPane.WARNING_MESSAGE)) {
 			case JOptionPane.OK_OPTION:
 				stopTCPListener();
 				stopUDPListener();
-				setButtonText("Start");
 				System.exit(0);
 				break;
 			case JOptionPane.CANCEL_OPTION:
