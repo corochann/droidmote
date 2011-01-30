@@ -14,20 +14,34 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * The Class MainWindow.
+ */
 public class MainWindow extends JFrame implements ActionListener {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	/** The jcontent pane. */
 	private JPanel jContentPane = null;
+
+	/** The start stop button. */
 	private JButton startStop = null;
+
+	/** The settings button. */
 	private JButton buttonSettings = null;
+
+	/** The top panel. */
 	private JPanel top = null;
 
+	/** The tcp server. */
 	private ServerTCP serverTCP = null;
+
+	/** The udp server. */
 	private ServerUDP serverUDP = null;
 
-
 	/**
-	 * This is the default constructor
+	 * This is the default constructor.
 	 */
 	public MainWindow() {
 		super();
@@ -44,7 +58,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method initializes this
+	 * This method initializes this.
 	 * 
 	 * @return void
 	 */
@@ -56,7 +70,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method initializes jContentPane
+	 * This method initializes jContentPane.
 	 * 
 	 * @return javax.swing.JPanel
 	 */
@@ -71,8 +85,11 @@ public class MainWindow extends JFrame implements ActionListener {
 		return jContentPane;
 	}
 
-
-
+	/**
+	 * Gets the top.
+	 * 
+	 * @return the top
+	 */
 	private JPanel getTop() {
 		if (top == null) {
 			top = new JPanel();
@@ -96,7 +113,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method initializes startStop
+	 * This method initializes startStop button.
 	 * 
 	 * @return javax.swing.JButton
 	 */
@@ -110,6 +127,11 @@ public class MainWindow extends JFrame implements ActionListener {
 		return startStop;
 	}
 
+	/**
+	 * Gets the settings button.
+	 * 
+	 * @return the settings button
+	 */
 	private JButton getButtonSettings() {
 		if (buttonSettings == null) {
 			buttonSettings = new JButton();
@@ -130,24 +152,39 @@ public class MainWindow extends JFrame implements ActionListener {
 		return buttonSettings;
 	}
 
-	private void startServers(){
+	/**
+	 * Start servers.
+	 */
+	private void startServers() {
 		if (SharedPreferences.getBoolean(SharedPreferences.DATA_TCP_LISTENER, SharedPreferences.DEFAULT_TCP_LISTENER))
 			startTCPListener();
 		if (SharedPreferences.getBoolean(SharedPreferences.DATA_UDP_LISTENER, SharedPreferences.DEFAULT_UDP_LISTENER))
 			startUDPListener();
 	}
-	
-	private void stopServers(){
+
+	/**
+	 * Stop servers.
+	 */
+	private void stopServers() {
 		stopTCPListener();
 		stopUDPListener();
 	}
-	
-	public synchronized void restartServers(){
+
+	/**
+	 * Restart servers.
+	 */
+	public synchronized void restartServers() {
 		if (serverUDP.isRunning() || serverTCP.isRunning()) {
 			stopServers();
 			startServers();
-		} 
+		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (serverUDP.isRunning() || serverTCP.isRunning()) {
@@ -158,31 +195,51 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * Stop udp listener.
+	 */
 	private void stopUDPListener() {
 		serverUDP.stop();
 	}
 
+	/**
+	 * Stop tcp listener.
+	 */
 	private void stopTCPListener() {
 		serverTCP.stop();
 	}
 
+	/**
+	 * Start udp listener.
+	 */
 	private void startUDPListener() {
 		println("Starting UDP server...");
 		serverUDP.start(SharedPreferences.getString(SharedPreferences.DATA_UDP_ADDRESS, SharedPreferences.DEFAULT_UDP_ADDRESS), SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
 	}
 
+	/**
+	 * Start tcp listener.
+	 */
 	private void startTCPListener() {
 		println("Starting TCP server...");
 		serverTCP.start(SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT));
 	}
 
-	public synchronized void updateButtonText(){
-		if (serverTCP.isRunning() || serverUDP.isRunning()) 
+	/**
+	 * Update button text.
+	 */
+	public synchronized void updateButtonText() {
+		if (serverTCP.isRunning() || serverUDP.isRunning())
 			startStop.setText("Stop");
 		else
 			startStop.setText("Start");
 	}
 
+	/**
+	 * Print the LOG
+	 * 
+	 * @param text the text to print
+	 */
 	public synchronized void println(String text) {
 		try {
 			System.out.println(text);
@@ -191,6 +248,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * This is called when closing the window. Stops the listeners if running.
+	 */
 	public void onClose() {
 		if (serverTCP.isRunning() || serverUDP.isRunning()) {
 			switch (JOptionPane.showConfirmDialog(MainWindow.this, "Opravdu chcete ukoncit program?", "Ukoncovaci dialog", JOptionPane.WARNING_MESSAGE)) {

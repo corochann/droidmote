@@ -25,52 +25,47 @@ public class ProfileEdit extends SuperActivity {
 
 	/** The Constant DEFAULT_PROFILE_NAME. */
 	public static final String DEFAULT_PROFILE_NAME = "New Profile";
-	
+
 	/** The Constant EXTRA_PROFILE_ID. */
 	public static final String EXTRA_PROFILE_ID = "profileId";
 
-	
-
 	/** The buttons. */
 	private Button[] buttons = new Button[12];
-	
+
 	/** The data provider. */
 	private DataProvider data;
-	
+
 	/** The profile id. */
 	private long profileId;
-	
+
 	/** The view. */
 	private LinearLayout view;
-	
+
 	/** The profile name EditText. */
 	private EditText edProfileName;
-	
+
 	/** The delete dialog. */
 	private AlertDialog deleteDialog;
-	
+
 	/**
-	 * The listener interface for receiving editButton events.
-	 * The class that is interested in processing a editButton
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addEditButtonListener<code> method. When
+	 * The listener interface for receiving editButton events. The class that is interested in processing a editButton event implements this interface, and the object created with
+	 * that class is registered with a component using the component's <code>addEditButtonListener<code> method. When
 	 * the editButton event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see EditButtonEvent
 	 */
 	class EditButtonListener implements OnLongClickListener {
-		
+
 		/** The button id. */
 		private long buttonId;
-		
+
 		/** The position. */
 		private int pos;
 
 		/**
 		 * Instantiates a new edits the button listener.
-		 *
+		 * 
 		 * @param buttonId the button id
 		 * @param pos the position
 		 */
@@ -81,7 +76,7 @@ public class ProfileEdit extends SuperActivity {
 
 		/**
 		 * Instantiates a new edits an empty button listener.
-		 *
+		 * 
 		 * @param pos the position of an empty button
 		 */
 		public EditButtonListener(int pos) {
@@ -100,7 +95,9 @@ public class ProfileEdit extends SuperActivity {
 			startActivityForResult(i, EDIT_REQ_CODE);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.view.View.OnLongClickListener#onLongClick(android.view.View)
 		 */
 		@Override
@@ -133,8 +130,10 @@ public class ProfileEdit extends SuperActivity {
 		}
 
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -195,7 +194,7 @@ public class ProfileEdit extends SuperActivity {
 	@Override
 	protected void setFullscreen() {
 	}
-	
+
 	/**
 	 * disabling the screen lock setter
 	 */
@@ -237,8 +236,9 @@ public class ProfileEdit extends SuperActivity {
 		data.close();
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
@@ -250,7 +250,9 @@ public class ProfileEdit extends SuperActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
@@ -264,7 +266,9 @@ public class ProfileEdit extends SuperActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onOptionsItemSelected(android.view.MenuItem)
 	 */
 	@Override

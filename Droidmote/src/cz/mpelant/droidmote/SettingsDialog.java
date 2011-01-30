@@ -47,8 +47,7 @@ public class SettingsDialog {
 	/**
 	 * Instantiates a new settings dialog.
 	 * 
-	 * @param mContext
-	 *            the context
+	 * @param mContext the context
 	 */
 	public SettingsDialog(Activity mContext) {
 		this.mContext = mContext;
@@ -183,8 +182,7 @@ public class SettingsDialog {
 	/**
 	 * Process the result from QR scanner.
 	 * 
-	 * @param data
-	 *            the result intent
+	 * @param data the result intent
 	 */
 	public void QRActivityResult(Intent data) {
 		String contents = data.getStringExtra("SCAN_RESULT");

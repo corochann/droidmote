@@ -53,7 +53,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 	/** The InputMethodManager. */
 	private InputMethodManager imgr;
 
-	/** The time in which the second touch on touchpad is recognized as a click */
+	/** The time in which is the touch recognized as a click */
 	public static final int TIME_MOUSE_CLICK = 200;
 
 	/*
@@ -90,10 +90,8 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 	/**
 	 * Checks if the poit is in a view.
 	 * 
-	 * @param point
-	 *            the point
-	 * @param view
-	 *            the view
+	 * @param point the point
+	 * @param view the view
 	 * @return true, if is in viewa
 	 */
 	private boolean isInView(Point point, View view) {
@@ -173,8 +171,7 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 	/**
 	 * Handle event.
 	 * 
-	 * @param event
-	 *            the event
+	 * @param event the event
 	 */
 	private void handleEvent(MotionEvent event) {
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {

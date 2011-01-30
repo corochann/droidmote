@@ -19,47 +19,49 @@ import cz.mpelant.droidmote.Keys.Key;
  * Activity for editing the buttons
  */
 public class ButtonEdit extends Activity {
-	
+
 	/** TAG for logcat */
 	public static String TAG = "droidmote";
-	
+
 	/** The Constant for getting button Id from Intent extras */
 	public static final String EXTRA_BUTTON_ID = "buttonId";
-	
+
 	/** The Constant for getting profile ID from Intent extras */
 	public static final String EXTRA_PROFILE_ID = "profileId";
-	
+
 	/** The Constant for getting postition from Intent extras */
 	public static final String EXTRA_POSITION = "position";
-	
+
 	/** Contains all the actions of the button */
 	private ArrayList<LinearLayout> parts = new ArrayList<LinearLayout>();
-	
+
 	/** The button name. */
 	private EditText buttonName;
-	
+
 	/** The plus minus button. */
 	private LinearLayout plusMinus;
-	
+
 	/** The keys. */
 	private Keys keys;
-	
+
 	/** The view. */
 	private LinearLayout view;
-	
+
 	/** The button id. */
 	private long buttonId;
-	
+
 	/** The profile id. */
 	private long profileId;
-	
+
 	/** The position of the button. */
 	private int position;
 
 	/** The data provider. */
 	private DataProvider data;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -174,8 +176,8 @@ public class ButtonEdit extends Activity {
 
 	/**
 	 * Adds a field.
-	 *
-	 * @param action the concrete action code 
+	 * 
+	 * @param action the concrete action code
 	 */
 	private void addField(String action) {
 		parts.add((LinearLayout) getLayoutInflater().inflate(R.layout.button_edit_action, null));
@@ -220,7 +222,7 @@ public class ButtonEdit extends Activity {
 
 	/**
 	 * Gets the name of the button.
-	 *
+	 * 
 	 * @return the name
 	 */
 	private String getName() {
@@ -242,7 +244,7 @@ public class ButtonEdit extends Activity {
 
 	/**
 	 * Checks if is name changed.
-	 *
+	 * 
 	 * @return true, if is name changed
 	 */
 	private boolean isNameChanged() {
@@ -255,26 +257,28 @@ public class ButtonEdit extends Activity {
 	 * SelectAction listener
 	 */
 	class SelectAction implements android.view.View.OnClickListener {
-		
+
 		/** The EditText for displaying the action */
 		EditText action;
 
 		/** An array coniaining names for the Dialog */
 		Key[] data;
-		
+
 		/** The options after the user clicks on Select action. */
 		final String[] options = { getResources().getString(R.string.characters), getResources().getString(R.string.arrows), getResources().getString(R.string.special) };
 
 		/**
 		 * Instantiates a new select action listener.
-		 *
-		 * @param action the EditText for displaying the action 
+		 * 
+		 * @param action the EditText for displaying the action
 		 */
 		public SelectAction(EditText action) {
 			this.action = action;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.view.View.OnClickListener#onClick(android.view.View)
 		 */
 		@Override
@@ -323,7 +327,5 @@ public class ButtonEdit extends Activity {
 		}
 
 	}
-
-	
 
 }

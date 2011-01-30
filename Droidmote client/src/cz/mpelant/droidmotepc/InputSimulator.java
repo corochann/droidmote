@@ -6,7 +6,18 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * The Class InputSimulator.
+ */
 public class InputSimulator {
+
+	/**
+	 * Press key.
+	 * 
+	 * @param input the input string
+	 * @param keys the keys
+	 * @param gui the gui for log
+	 */
 	public static void pressKey(String input, Keys keys, MainWindow gui) {
 		String[] parts = input.split(":");
 		if (parts[0].equals(Commands.COMMAND_CHAR))
@@ -43,12 +54,17 @@ public class InputSimulator {
 		} else if (parts[0].equals(Commands.COMMAND_MOUSE_CLICK)) {
 			mousePress(parts[1]);
 			mouseRelease(parts[1]);
-		}else {
+		} else {
 			gui.println("Unknown command " + input);
 		}
 
 	}
 
+	/**
+	 * Mouse button press.
+	 * 
+	 * @param value the value
+	 */
 	private static void mousePress(String value) {
 
 		int mouseButton = getMouseButtonID(value);
@@ -58,11 +74,15 @@ public class InputSimulator {
 			Robot robot = new Robot();
 			robot.mousePress(mouseButton);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Mouse button release.
+	 * 
+	 * @param value the value
+	 */
 	private static void mouseRelease(String value) {
 		int mouseButton = getMouseButtonID(value);
 		if (mouseButton == -1)
@@ -71,11 +91,16 @@ public class InputSimulator {
 			Robot robot = new Robot();
 			robot.mouseRelease(mouseButton);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Gets the mouse button id.
+	 * 
+	 * @param value the value
+	 * @return the mouse button id
+	 */
 	private static int getMouseButtonID(String value) {
 		if (value.equals(Commands.VALUE_MOUSE_LEFT))
 			return InputEvent.BUTTON1_MASK;
@@ -87,6 +112,12 @@ public class InputSimulator {
 			return -1;
 	}
 
+	/**
+	 * Move mouse.
+	 * 
+	 * @param x the diff of x axis
+	 * @param y the diff of y axis
+	 */
 	private static void moveMouse(int x, int y) {
 		try {
 			Robot robot = new Robot();
@@ -94,12 +125,16 @@ public class InputSimulator {
 			int nY = MouseInfo.getPointerInfo().getLocation().y; // Get location
 			robot.mouseMove(nX + x, nY + y);
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 
+	/**
+	 * Press the utf8 character as a alt+keycode combination
+	 * 
+	 * @param keycode the keycode
+	 */
 	private static void sendUTF8(String keycode) {
 		Robot robot = null;
 		try {
@@ -117,6 +152,12 @@ public class InputSimulator {
 
 	}
 
+	/**
+	 * Send command.
+	 * 
+	 * @param keyEvent the key event
+	 * @param gui the gui
+	 */
 	private static void sendCommand(int keyEvent, MainWindow gui) {
 		try {
 			Robot robot = new Robot();
@@ -130,6 +171,12 @@ public class InputSimulator {
 
 	}
 
+	/**
+	 * Send command.
+	 * 
+	 * @param keyEvents the key events
+	 * @param gui the gui
+	 */
 	private static void sendCommand(int[] keyEvents, MainWindow gui) {
 		try {
 			Robot robot = new Robot();

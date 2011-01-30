@@ -16,20 +16,22 @@ import android.widget.Button;
  * Displays the profile.
  */
 public class ProfileView extends SuperActivity {
-	
+
 	/** The buttons. */
 	private Button[] buttons = new Button[12];
-	
+
 	/** The data provider. */
 	private DataProvider data;
-	
+
 	/** The profile id. */
 	private long profileId = -1;
-	
+
 	/** The delete dialog. */
 	private AlertDialog deleteDialog;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -94,7 +96,9 @@ public class ProfileView extends SuperActivity {
 		data.close();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onResume()
 	 */
 	@Override
@@ -112,7 +116,9 @@ public class ProfileView extends SuperActivity {
 		super.onResume();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
@@ -125,7 +131,9 @@ public class ProfileView extends SuperActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
 	@Override
@@ -135,7 +143,9 @@ public class ProfileView extends SuperActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see cz.mpelant.droidmote.SuperActivity#onOptionsItemSelected(android.view.MenuItem)
 	 */
 	@Override

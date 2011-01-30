@@ -20,28 +20,63 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * The Class QRWindow.
+ */
 public class QRWindow extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	/** The jcontent pane. */
 	private JPanel jContentPane = null;
+
+	/** The settings panel. */
 	private JPanel settings = null;
+
+	/** The QR code panel. */
 	private QRPanel QRCode = null; // @jve:decl-index=0:
+
+	/** The QR image. */
 	private Image img; // @jve:decl-index=0:
+
+	/** The port. */
 	private JTextField port = null;
+
+	/** The address. */
 	private JTextField address = null;
+
+	/** The show qr button. */
 	private JButton showQR = null;
+
+	/** The save button. */
 	private JButton save = null;
+
+	/** The qr generator. */
 	private QRGenerator qrGenerator;
-	private JCheckBox jrbUDP;
-	private JCheckBox jrbTCP;
+
+	/** The udp checkbox. */
+	private JCheckBox cbUDP;
+
+	/** The tcp checkbox. */
+	private JCheckBox cbTCP;
+
+	/** The main window. */
 	private MainWindow mainWindow;
 
+	/**
+	 * The Class QRPanel.
+	 */
 	class QRPanel extends JPanel {
-		/**
-		 * 
-		 */
+
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			setPreferredSize(new Dimension(img.getWidth(null), img.getWidth(null)));
@@ -53,17 +88,19 @@ public class QRWindow extends JFrame {
 	}
 
 	/**
-	 * This is the default constructor
+	 * This is the default constructor.
+	 * 
+	 * @param mainWindow the main window
 	 */
 	public QRWindow(MainWindow mainWindow) {
 		super();
 		initialize();
-		this.mainWindow=mainWindow;
+		this.mainWindow = mainWindow;
 
 	}
 
 	/**
-	 * This method initializes this
+	 * This method initializes this.
 	 * 
 	 * @return void
 	 */
@@ -76,7 +113,7 @@ public class QRWindow extends JFrame {
 	}
 
 	/**
-	 * This method initializes jContentPane
+	 * This method initializes jContentPane.
 	 * 
 	 * @return javax.swing.JPanel
 	 */
@@ -94,6 +131,11 @@ public class QRWindow extends JFrame {
 		return jContentPane;
 	}
 
+	/**
+	 * Gets the settings.
+	 * 
+	 * @return the settings
+	 */
 	private JPanel getSettings() {
 		if (settings == null) {
 			setProtocolBoxes();
@@ -132,10 +174,10 @@ public class QRWindow extends JFrame {
 			settings.add(new JLabel("Accept protocols:"), gBC);
 
 			gBC.gridx = 1;
-			settings.add(jrbTCP, gBC);
+			settings.add(cbTCP, gBC);
 
 			gBC.gridx = 2;
-			settings.add(jrbUDP, gBC);
+			settings.add(cbUDP, gBC);
 
 			gBC.gridx = 3;
 			settings.add(new JLabel("Your current IP is: " + ServerTCP.getIP()), gBC);
@@ -156,10 +198,13 @@ public class QRWindow extends JFrame {
 		return settings;
 	}
 
+	/**
+	 * Sets the protocol boxes.
+	 */
 	private void setProtocolBoxes() {
-		jrbUDP = new JCheckBox("UDP");
+		cbUDP = new JCheckBox("UDP");
 
-		jrbUDP.addItemListener(new ItemListener() {
+		cbUDP.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -172,10 +217,15 @@ public class QRWindow extends JFrame {
 			}
 		});
 
-		jrbTCP = new JCheckBox("TCP");
+		cbTCP = new JCheckBox("TCP");
 
 	}
 
+	/**
+	 * Gets the QR code.
+	 * 
+	 * @return the QR code
+	 */
 	private JPanel getQRCode() {
 		if (QRCode == null) {
 			QRCode = new QRPanel();
@@ -188,7 +238,7 @@ public class QRWindow extends JFrame {
 	}
 
 	/**
-	 * This method initializes port
+	 * This method initializes port textfield.
 	 * 
 	 * @return javax.swing.JTextField
 	 */
@@ -199,21 +249,32 @@ public class QRWindow extends JFrame {
 		return port;
 	}
 
+	/**
+	 * Show alert dialog.
+	 * 
+	 * @param text the text
+	 */
 	private void showAlertDialog(String text) {
 		JOptionPane.showMessageDialog(this, text);
 	}
 
+	/**
+	 * Load settings.
+	 */
 	private void loadSettings() {
 		if (port != null)
 			port.setText(SharedPreferences.getInt(SharedPreferences.DATA_PORT, SharedPreferences.DEFAULT_PORT) + "");
 		if (address != null)
 			address.setText(SharedPreferences.getString(SharedPreferences.DATA_UDP_ADDRESS, SharedPreferences.DEFAULT_UDP_ADDRESS));
-		if (jrbTCP != null)
-			jrbTCP.setSelected(SharedPreferences.getBoolean(SharedPreferences.DATA_TCP_LISTENER, SharedPreferences.DEFAULT_TCP_LISTENER));
-		if (jrbUDP != null)
-			jrbUDP.setSelected(SharedPreferences.getBoolean(SharedPreferences.DATA_UDP_LISTENER, SharedPreferences.DEFAULT_UDP_LISTENER));
+		if (cbTCP != null)
+			cbTCP.setSelected(SharedPreferences.getBoolean(SharedPreferences.DATA_TCP_LISTENER, SharedPreferences.DEFAULT_TCP_LISTENER));
+		if (cbUDP != null)
+			cbUDP.setSelected(SharedPreferences.getBoolean(SharedPreferences.DATA_UDP_LISTENER, SharedPreferences.DEFAULT_UDP_LISTENER));
 	}
 
+	/**
+	 * Save settings.
+	 */
 	private void saveSettings() {
 		int portInt;
 		try {
@@ -228,11 +289,16 @@ public class QRWindow extends JFrame {
 		}
 		SharedPreferences.putInt(SharedPreferences.DATA_PORT, Integer.parseInt(port.getText()));
 		SharedPreferences.putString(SharedPreferences.DATA_UDP_ADDRESS, address.getText());
-		SharedPreferences.putBoolean(SharedPreferences.DATA_TCP_LISTENER, jrbTCP.isSelected());
-		SharedPreferences.putBoolean(SharedPreferences.DATA_UDP_LISTENER, jrbUDP.isSelected());
+		SharedPreferences.putBoolean(SharedPreferences.DATA_TCP_LISTENER, cbTCP.isSelected());
+		SharedPreferences.putBoolean(SharedPreferences.DATA_UDP_LISTENER, cbUDP.isSelected());
 
 	}
 
+	/**
+	 * Gets the save button.
+	 * 
+	 * @return the save button
+	 */
 	private JButton getButtonSave() {
 		if (save == null) {
 			save = new JButton();
@@ -250,14 +316,19 @@ public class QRWindow extends JFrame {
 		return save;
 	}
 
+	/**
+	 * Gets the data for qr.
+	 * 
+	 * @return the data for qr
+	 */
 	private String getDataForQR() {
 		String rtrn = "";
 		String separator = "";
-		if (jrbUDP.isSelected()) {
+		if (cbUDP.isSelected()) {
 			rtrn = "UDP";
 			separator = "|";
 		}
-		if (jrbTCP.isSelected()) {
+		if (cbTCP.isSelected()) {
 			rtrn += separator + "TCP";
 		}
 		separator = ";";
@@ -268,6 +339,9 @@ public class QRWindow extends JFrame {
 		return rtrn;
 	}
 
+	/**
+	 * Refresh qr.
+	 */
 	private void refreshQR() {
 		img = qrGenerator.encode(getDataForQR());
 		if (QRCode.isVisible()) {
@@ -284,6 +358,11 @@ public class QRWindow extends JFrame {
 		}
 	}
 
+	/**
+	 * Gets the refresh qr button.
+	 * 
+	 * @return the button
+	 */
 	private JButton getButtonQR() {
 		if (showQR == null) {
 			showQR = new JButton();
@@ -305,6 +384,11 @@ public class QRWindow extends JFrame {
 		return showQR;
 	}
 
+	/**
+	 * Gets the address text field.
+	 * 
+	 * @return the text field
+	 */
 	private JTextField getTextAddress() {
 		if (address == null) {
 			address = new JTextField();
