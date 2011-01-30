@@ -21,16 +21,16 @@ import android.widget.ListView;
  * Displays the profile list.
  */
 public class ProfileList extends Activity {
-	
+
 	/** The profiles. */
 	private ArrayList<ProfileItem> profiles;
-	
+
 	/** The data provider. */
 	private DataProvider data;
 
 	/** The TAG. */
 	public static String TAG = "droidmote";
-	
+
 	/** The list view. */
 	private ListView listView;
 
@@ -38,16 +38,16 @@ public class ProfileList extends Activity {
 	 * The Class ProfileItem for the Adapter which holds the data for a specific profile.
 	 */
 	class ProfileItem {
-		
+
 		/** The id of the profile. */
 		public long id;
-		
+
 		/** The name of the profile. */
 		public String name;
 
 		/**
 		 * Instantiates a new profile item.
-		 *
+		 * 
 		 * @param id the id
 		 * @param name the name
 		 */
@@ -56,7 +56,9 @@ public class ProfileList extends Activity {
 			this.name = name;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#toString()
 		 */
 		@Override
@@ -64,7 +66,9 @@ public class ProfileList extends Activity {
 			return name;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#equals(java.lang.Object)
 		 */
 		@Override
@@ -77,18 +81,15 @@ public class ProfileList extends Activity {
 	}
 
 	/**
-	 * The listener interface for receiving editItem events.
-	 * The class that is interested in processing a editItem
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addEditItemListener<code> method. When
+	 * The listener interface for receiving editItem events. The class that is interested in processing a editItem event implements this interface, and the object created with that
+	 * class is registered with a component using the component's <code>addEditItemListener<code> method. When
 	 * the editItem event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see EditItemEvent
 	 */
 	class EditItemListener implements AdapterView.OnItemLongClickListener {
-		
+
 		/** The item. */
 		private ProfileItem item;
 
@@ -101,7 +102,9 @@ public class ProfileList extends Activity {
 			startActivityForResult(i, 0);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.widget.AdapterView.OnItemLongClickListener#onItemLongClick(android.widget.AdapterView, android.view.View, int, long)
 		 */
 		@Override
@@ -123,7 +126,7 @@ public class ProfileList extends Activity {
 					data.open();
 					data.deleteProfile(item.id);
 					data.close();
-					if(PreferenceManager.getDefaultSharedPreferences(ProfileList.this).getLong(SuperActivity.DATA_LAST_PROFILE, -1)==item.id){
+					if (PreferenceManager.getDefaultSharedPreferences(ProfileList.this).getLong(SuperActivity.DATA_LAST_PROFILE, -1) == item.id) {
 						Editor editor = PreferenceManager.getDefaultSharedPreferences(ProfileList.this).edit();
 						editor.remove(SuperActivity.DATA_LAST_PROFILE);
 						editor.commit();
@@ -137,7 +140,9 @@ public class ProfileList extends Activity {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -156,7 +161,7 @@ public class ProfileList extends Activity {
 				startActivityForResult(i, 0);
 			}
 		});
-		
+
 		listView.setOnItemLongClickListener(new EditItemListener());
 
 		Button btAdd = (Button) findViewById(R.id.btAdd);
@@ -171,7 +176,9 @@ public class ProfileList extends Activity {
 		super.onCreate(savedInstanceState);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override

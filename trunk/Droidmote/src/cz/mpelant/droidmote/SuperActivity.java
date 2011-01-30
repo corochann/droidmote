@@ -22,78 +22,79 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * The Super Activity which other activities inherits from.
- * Provides basic functionality that is common in all these activities.
+ * The Super Activity which other activities inherits from. Provides basic functionality that is common in all these activities.
  */
 public class SuperActivity extends Activity {
-	
+
 	/** The TAG. */
 	public static final String TAG = "droidmote";
-	
+
 	/** The SCREENLOCK constant for SharedPreferences. */
 	public static final String SCREENLOCK = "screenLock";
-	
+
 	/** The Constant that indicates settings dialog. */
 	public static final int DIALOG_SETTINGS = 1;
-	
+
 	/** The Constant that indicates enable wifi dialog. */
 	public static final int DIALOG_ENABLE_WIFI = 2;
-	
+
 	/** The DATA_IP constant for SharedPreferences. */
 	public static final String DATA_IP = "serverIP";
-	
+
 	/** The DATA_PROTOCOL constant for SharedPreferences. */
 	public static final String DATA_PROTOCOL = "protocol";
-	
+
 	/** The DATA_PORT constant for SharedPreferences. */
 	public static final String DATA_PORT = "port";
-	
+
 	/** The DATA_UDP_ADDRESS constant for SharedPreferences. */
 	public static final String DATA_UDP_ADDRESS = "UDPAddress";
-	
+
 	/** The DATA_LAST_PROFILE constant for SharedPreferences. */
 	public static final String DATA_LAST_PROFILE = "lastProfile";
-	
+
 	/** The PROTOCOL_UDP value for SharedPreferences. */
 	public static final int PROTOCOL_UDP = 0;
-	
+
 	/** The PROTOCOL_TCP value for SharedPreferences. */
 	public static final int PROTOCOL_TCP = 1;
 
 	/** The Constant DEFAULT_IP. */
 	public static final String DEFAULT_IP = "192.168.0.1";
-	
+
 	/** The Constant DEFAULT_PROTOCOL. */
 	public static final int DEFAULT_PROTOCOL = PROTOCOL_UDP;
-	
+
 	/** The Constant DEFAULT_PORT. */
 	public static final int DEFAULT_PORT = 44522;
-	
+
 	/** The Constant DEFAULT_UDP_ADDRESS. */
 	public static final String DEFAULT_UDP_ADDRESS = "228.36.4.70";
-	
+
 	/** The Constant ACTION for broadcasting intent */
 	public static final String ACTION = "cz.mpelant.droidmote.SEND_TO_PC";
-	
+
 	/** The request code for editing. */
 	public static final int EDIT_REQ_CODE = 1;
-	
+
 	/** The request code for getting the QR code */
 	public static final int DECODE_QR_REQ_CODE = 2;
-	
+
 	/** The DATA_FULLSCREEN constant for SharedPreferences. */
 	public static final String DATA_FULLSCREEN = "fullscreen";
-	
+
 	/** The titlebar. */
 	protected View titlebar;
-	
+
 	/** The settings dialog. */
 	protected SettingsDialog settingsDialog;
-	
+
 	/** The shared preferences. */
 	protected SharedPreferences sp;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
 	@Override
@@ -145,7 +146,9 @@ public class SuperActivity extends Activity {
 			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onCreateDialog(int)
 	 */
 	@Override
@@ -159,7 +162,7 @@ public class SuperActivity extends Activity {
 			wifi.setTitle(R.string.wifi_dialog_title);
 			wifi.setMessage(R.string.wifi_dialog_message);
 			wifi.setPositiveButton(R.string.wifi_dialog_ok, new OnClickListener() {
-				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -173,7 +176,9 @@ public class SuperActivity extends Activity {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
@@ -188,7 +193,9 @@ public class SuperActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onResume()
 	 */
 	@Override
@@ -198,7 +205,9 @@ public class SuperActivity extends Activity {
 		super.onResume();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
 	 */
 	@Override
@@ -213,7 +222,9 @@ public class SuperActivity extends Activity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
 	 */
 	@Override

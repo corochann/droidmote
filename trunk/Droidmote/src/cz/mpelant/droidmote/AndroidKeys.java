@@ -6,10 +6,10 @@ import android.view.KeyEvent;
  * The Class AndroidKeys.
  */
 public class AndroidKeys {
-	
+
 	/**
 	 * Convert android to pc key event code.
-	 *
+	 * 
 	 * @param keyEvent the key event
 	 * @return the key event code
 	 */
@@ -86,26 +86,26 @@ public class AndroidKeys {
 		case KeyEvent.KEYCODE_Y:
 			return "VK_Y";
 		case KeyEvent.KEYCODE_Z:
-			return "VK_Z";	
+			return "VK_Z";
 		case KeyEvent.KEYCODE_SPACE:
-			return "VK_SPACE";	
+			return "VK_SPACE";
 		case KeyEvent.KEYCODE_PERIOD:
 			return "VK_PERIOD";
 		case KeyEvent.KEYCODE_SEMICOLON:
-			return "VK_SEMICOLON";	
+			return "VK_SEMICOLON";
 		case KeyEvent.KEYCODE_EQUALS:
-			return "VK_EQUALS";	
+			return "VK_EQUALS";
 		case KeyEvent.KEYCODE_BACKSLASH:
-			return "VK_BACK_SLASH";	
+			return "VK_BACK_SLASH";
 		case KeyEvent.KEYCODE_COMMA:
-			return "VK_COMMA";	
+			return "VK_COMMA";
 		case KeyEvent.KEYCODE_MINUS:
-			return "VK_MINUS";	
+			return "VK_MINUS";
 		case KeyEvent.KEYCODE_SLASH:
-			return "VK_SLASH";	
+			return "VK_SLASH";
 		case KeyEvent.KEYCODE_AT:
-			return "VK_AT";	
-		
+			return "VK_AT";
+
 		}
 		return null;
 	}

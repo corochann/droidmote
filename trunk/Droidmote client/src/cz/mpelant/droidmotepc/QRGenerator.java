@@ -11,20 +11,35 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
 
+/**
+ * The Class QRGenerator.
+ */
 public class QRGenerator {
+
+	/** The scale of output image. */
 	private int scale;
 
+	/**
+	 * Instantiates a new qR generator.
+	 * 
+	 * @param scale the scale
+	 */
 	public QRGenerator(int scale) {
 		this.scale = scale;
 	}
 
+	/**
+	 * Encode.
+	 * 
+	 * @param text the text to encode
+	 * @return the image
+	 */
 	public Image encode(String text) {
 		// Encode the text
 		QRCode qrcode = new QRCode();
 		try {
 			Encoder.encode(text, ErrorCorrectionLevel.H, qrcode);
 		} catch (WriterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		byte[][] matrix = qrcode.getMatrix().getArray();

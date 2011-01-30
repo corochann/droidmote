@@ -63,8 +63,7 @@ public class SendingService extends Service {
 	/**
 	 * Handle the command.
 	 * 
-	 * @param intent
-	 *            the intent
+	 * @param intent the intent
 	 */
 	private void handleCommand(Intent intent) {
 		// measureTime("----------------handle Command");
@@ -108,8 +107,7 @@ public class SendingService extends Service {
 	/**
 	 * Measure time.
 	 * 
-	 * @param tag
-	 *            the tag
+	 * @param tag the tag
 	 */
 	private void measureTime(String tag) {
 		long delta = System.currentTimeMillis() - time;
@@ -131,10 +129,8 @@ public class SendingService extends Service {
 		/**
 		 * Instantiates a new send command udp.
 		 * 
-		 * @param address
-		 *            the address
-		 * @param port
-		 *            the port
+		 * @param address the address
+		 * @param port the port
 		 */
 		public SendCommandUDP(String address, int port) {
 			this.address = address;
@@ -188,10 +184,8 @@ public class SendingService extends Service {
 		/**
 		 * Instantiates a new send command tcp.
 		 * 
-		 * @param IP
-		 *            the IP
-		 * @param port
-		 *            the port
+		 * @param IP the IP
+		 * @param port the port
 		 */
 		public SendCommandTCP(String IP, int port) {
 			this.port = port;

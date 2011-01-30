@@ -12,7 +12,7 @@ import android.util.Log;
  * The Class DataProvider.
  */
 public class DataProvider {
-	
+
 	/** The TAG for logcat */
 	public static final String TAG = "droidmote";
 
@@ -21,37 +21,37 @@ public class DataProvider {
 
 	/** The Constant BUTTONS_DB_NAME. */
 	public static final String BUTTONS_DB_NAME = "buttons";
-	
+
 	/** The Constant ACTIONS_DB_NAME. */
 	public static final String ACTIONS_DB_NAME = "actions";
-	
+
 	/** The Constant PROFILES_DB_NAME. */
 	public static final String PROFILES_DB_NAME = "profiles";
 
 	/** The Constant PROFILES_ROWID. */
 	public static final String PROFILES_ROWID = "_id";
-	
+
 	/** The Constant PROFILES_NAME. */
 	public static final String PROFILES_NAME = "name";
 
 	/** The Constant BUTTONS_ROWID. */
 	public static final String BUTTONS_ROWID = "_id";
-	
+
 	/** The Constant BUTTONS_PROFILE_ID. */
 	public static final String BUTTONS_PROFILE_ID = "profile_id";
-	
+
 	/** The Constant BUTTONS_POSITION. */
 	public static final String BUTTONS_POSITION = "position";
-	
+
 	/** The Constant BUTTONS_NAME. */
 	public static final String BUTTONS_NAME = "name";
 
 	/** The Constant ACTIONS_ROWID. */
 	public static final String ACTIONS_ROWID = "_id";
-	
+
 	/** The Constant ACTIONS_BUTTON_ID. */
 	public static final String ACTIONS_BUTTON_ID = "button_id";
-	
+
 	/** The Constant ACTIONS_ACTION. */
 	public static final String ACTIONS_ACTION = "action";
 
@@ -60,11 +60,11 @@ public class DataProvider {
 
 	/** The Database Helper instance */
 	private DatabaseHelper mDbHelper;
-	
+
 	/** The SQLiteDatabase */
 	private SQLiteDatabase mDb;
 
-	/** The context for accessing the database*/
+	/** The context for accessing the database */
 	private final Context mCtx;
 
 	/**
@@ -74,14 +74,16 @@ public class DataProvider {
 
 		/**
 		 * Instantiates a new database helper.
-		 *
+		 * 
 		 * @param context the context
 		 */
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
 		 */
 		@Override
@@ -96,7 +98,9 @@ public class DataProvider {
 
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
 		 */
 		@Override
@@ -111,7 +115,7 @@ public class DataProvider {
 
 	/**
 	 * Instantiates a new data provider.
-	 *
+	 * 
 	 * @param ctx the context
 	 */
 	public DataProvider(Context ctx) {
@@ -120,7 +124,7 @@ public class DataProvider {
 
 	/**
 	 * Open.
-	 *
+	 * 
 	 * @return the data provider
 	 * @throws SQLException the SQL exception
 	 */
@@ -140,9 +144,9 @@ public class DataProvider {
 	// ------PROFILES-----------------------------------------
 	/**
 	 * Creates the profile.
-	 *
+	 * 
 	 * @param name the name of the profile
-	 * @return the row ID of the newly inserted row, or -1 if an error occurred 
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
 	public long createProfile(String name) {
 		ContentValues initialValues = new ContentValues();
@@ -153,7 +157,7 @@ public class DataProvider {
 
 	/**
 	 * Delete profile.
-	 *
+	 * 
 	 * @param rowId the row Id of the profile
 	 * @return true, if successful
 	 */
@@ -171,7 +175,7 @@ public class DataProvider {
 
 	/**
 	 * Update profile.
-	 *
+	 * 
 	 * @param rowId the row Id of the profile
 	 * @param name the new updated name
 	 * @return true, if successful
@@ -186,7 +190,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch all profiles.
-	 *
+	 * 
 	 * @return the cursor
 	 */
 	public Cursor fetchAllProfiles() {
@@ -195,7 +199,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch profile.
-	 *
+	 * 
 	 * @param rowId the row Id of the profile
 	 * @return the cursor
 	 * @throws SQLException the sQL exception
@@ -213,11 +217,11 @@ public class DataProvider {
 	// ------BUTTONS-----------------------------------------
 	/**
 	 * Creates the button.
-	 *
+	 * 
 	 * @param name the name of the button
 	 * @param pos the position
 	 * @param profileId the profile id
-	 * @return the row ID of the newly inserted row, or -1 if an error occurred 
+	 * @return the row ID of the newly inserted row, or -1 if an error occurred
 	 */
 	public long createButton(String name, int pos, long profileId) {
 		ContentValues initialValues = new ContentValues();
@@ -230,7 +234,7 @@ public class DataProvider {
 
 	/**
 	 * Delete button.
-	 *
+	 * 
 	 * @param rowId the row Id of the button
 	 * @return true, if successful
 	 */
@@ -241,7 +245,7 @@ public class DataProvider {
 
 	/**
 	 * Update button.
-	 *
+	 * 
 	 * @param rowId the row Id of the button
 	 * @param name the new updated name
 	 * @return true, if successful
@@ -256,7 +260,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch all buttons.
-	 *
+	 * 
 	 * @return the cursor
 	 */
 	public Cursor fetchAllButtons() {
@@ -265,7 +269,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch button.
-	 *
+	 * 
 	 * @param rowId the row Id of the button
 	 * @return the cursor
 	 * @throws SQLException the sQL exception
@@ -282,7 +286,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch button.
-	 *
+	 * 
 	 * @param profileID the profile id
 	 * @param pos the position
 	 * @return the cursor
@@ -303,7 +307,7 @@ public class DataProvider {
 
 	/**
 	 * Creates the action.
-	 *
+	 * 
 	 * @param name the name
 	 * @param buttonID the button id
 	 * @return the long
@@ -318,7 +322,7 @@ public class DataProvider {
 
 	/**
 	 * Delete actions.
-	 *
+	 * 
 	 * @param buttonId the button id
 	 * @return true, if successful
 	 */
@@ -329,7 +333,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch all actions.
-	 *
+	 * 
 	 * @param buttonId the button id
 	 * @return the cursor
 	 */
@@ -339,7 +343,7 @@ public class DataProvider {
 
 	/**
 	 * Fetch action.
-	 *
+	 * 
 	 * @param rowId the row Id of the action
 	 * @return the cursor
 	 * @throws SQLException the sQL exception

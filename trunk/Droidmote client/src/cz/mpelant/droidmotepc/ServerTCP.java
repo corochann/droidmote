@@ -8,14 +8,31 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * TCP listener.
+ */
 public class ServerTCP extends Server {
+
+	/** The socket. */
 	private Socket s;
+
+	/** The server socket in. */
 	private ServerSocket ssIn;
 
+	/**
+	 * Instantiates a new server tcp.
+	 * 
+	 * @param gui the gui
+	 */
 	public ServerTCP(MainWindow gui) {
 		super(gui);
 	}
 
+	/**
+	 * Gets the local IP.
+	 * 
+	 * @return the local IP
+	 */
 	public static String getIP() {
 		String hostname = "";
 		try {
@@ -28,12 +45,22 @@ public class ServerTCP extends Server {
 
 	}
 
+	/**
+	 * Start.
+	 * 
+	 * @param port the port
+	 */
 	public void start(int port) {
 		this.port = port;
 		gui.println("starting TCP listener");
 		start();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cz.mpelant.droidmotepc.Server#doInBackground()
+	 */
 	public void doInBackground() throws IOException {
 		ssIn = new ServerSocket(port);
 		String str = "";
@@ -48,12 +75,22 @@ public class ServerTCP extends Server {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cz.mpelant.droidmotepc.Server#stop()
+	 */
 	@Override
 	public void stop() {
 		gui.println("stopping TCP listener");
 		super.stop();
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cz.mpelant.droidmotepc.Server#closeSocket()
+	 */
 	@Override
 	public void closeSocket() {
 		try {

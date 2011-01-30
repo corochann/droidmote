@@ -7,19 +7,45 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * This class is used to store settings in an .ini file
+ */
 public class SharedPreferences {
+
+	/** The Constant DATA_TCP_LISTENER for storing boolean whether TCP listener is used. */
 	public static final String DATA_TCP_LISTENER = "tcpListener";
+
+	/** The Constant DATA_UDP_LISTENER for storing boolean whether UDP listener is used. */
 	public static final String DATA_UDP_LISTENER = "udpListener";
+
+	/** The Constant DATA_PORT for storing the port. */
 	public static final String DATA_PORT = "port";
+
+	/** The Constant DATA_UDP_ADDRESS for storing the UDP group/address. */
 	public static final String DATA_UDP_ADDRESS = "UDPAddress";
 
+	/** The Constant DEFAULT_TCP_LISTENER. */
 	public static final boolean DEFAULT_TCP_LISTENER = true;
+
+	/** The Constant DEFAULT_UDP_LISTENER. */
 	public static final boolean DEFAULT_UDP_LISTENER = true;
+
+	/** The Constant DEFAULT_PORT. */
 	public static final int DEFAULT_PORT = 44522;
+
+	/** The Constant DEFAULT_UDP_ADDRESS. */
 	public static final String DEFAULT_UDP_ADDRESS = "228.36.4.70";
 
+	/** The Constant name of the settings file. */
 	public static final String FILENAME = "settings.ini";
 
+	/**
+	 * Load properites.
+	 * 
+	 * @return the properties
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static Properties loadProperites() throws FileNotFoundException, IOException {
 		Properties p = new Properties();
 		File settings = new File(FILENAME);
@@ -28,11 +54,26 @@ public class SharedPreferences {
 		return p;
 	}
 
+	/**
+	 * Gets the value.
+	 * 
+	 * @param name the name
+	 * @return the value
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private static String getValue(String name) throws FileNotFoundException, IOException {
 		Properties p = loadProperites();
 		return p.getProperty(name);
 	}
 
+	/**
+	 * Gets the int.
+	 * 
+	 * @param name the name
+	 * @param def the default value
+	 * @return the int
+	 */
 	public static int getInt(String name, int def) {
 		try {
 			String value = getValue(name);
@@ -42,6 +83,13 @@ public class SharedPreferences {
 		}
 	}
 
+	/**
+	 * Gets the string.
+	 * 
+	 * @param name the name
+	 * @param def the default value
+	 * @return the string
+	 */
 	public static String getString(String name, String def) {
 		try {
 			String string = getValue(name);
@@ -53,10 +101,23 @@ public class SharedPreferences {
 		}
 	}
 
+	/**
+	 * Gets the string.
+	 * 
+	 * @param name the name
+	 * @return the string or "" if not found
+	 */
 	public static String getString(String name) {
 		return getString(name, "");
 	}
 
+	/**
+	 * Gets the boolean.
+	 * 
+	 * @param name the name
+	 * @param def the default value
+	 * @return the boolean
+	 */
 	public static boolean getBoolean(String name, boolean def) {
 		try {
 			String value = getValue(name);
@@ -71,6 +132,13 @@ public class SharedPreferences {
 		}
 	}
 
+	/**
+	 * Put int into the settings file.
+	 * 
+	 * @param name the name
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	public static boolean putInt(String name, int value) {
 		try {
 			Properties p = loadProperites();
@@ -83,6 +151,13 @@ public class SharedPreferences {
 		}
 	}
 
+	/**
+	 * Put string into the settings file.
+	 * 
+	 * @param name the name
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	public static boolean putString(String name, String value) {
 		try {
 			Properties p = loadProperites();
@@ -95,6 +170,13 @@ public class SharedPreferences {
 		}
 	}
 
+	/**
+	 * Put boolean into the settings file.
+	 * 
+	 * @param name the name
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	public static boolean putBoolean(String name, boolean value) {
 		try {
 			Properties p = loadProperites();
