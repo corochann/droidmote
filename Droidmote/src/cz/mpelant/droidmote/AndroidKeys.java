@@ -2,7 +2,17 @@ package cz.mpelant.droidmote;
 
 import android.view.KeyEvent;
 
+/**
+ * The Class AndroidKeys.
+ */
 public class AndroidKeys {
+	
+	/**
+	 * Convert android to pc key event code.
+	 *
+	 * @param keyEvent the key event
+	 * @return the key event code
+	 */
 	public static String convertToPCEvent(int keyEvent) {
 		switch (keyEvent) {
 		case KeyEvent.KEYCODE_0:

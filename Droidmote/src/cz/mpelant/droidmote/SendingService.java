@@ -15,32 +15,59 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+/**
+ * Sends the commad via UDP or TCP to the pc
+ */
 public class SendingService extends Service {
+
+	/** The TAG. */
 	public static String TAG = "droidmote";
+
+	/** The time for measuring the speed. */
 	private long time;
+
+	/** The timer for ending the service after 60 seconds since the last command received. */
 	private Timer timer;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 */
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
 
-	// This is the old onStart method that will be called on the pre-2.0
-	// platform. On 2.0 or later we override onStartCommand() so this
-	// method will not be called.
+	/*
+	 * (non-Javadoc) This is the old onStart method that will be called on the pre-2.0 platform. On 2.0 or later we override onStartCommand() so this method will not be called.
+	 * 
+	 * @see android.app.Service#onStart(android.content.Intent, int)
+	 */
 	@Override
 	public void onStart(Intent intent, int startId) {
 		handleCommand(intent);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
+	 */
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		handleCommand(intent);
 		return START_NOT_STICKY;
 	}
 
+	/**
+	 * Handle the command.
+	 * 
+	 * @param intent
+	 *            the intent
+	 */
 	private void handleCommand(Intent intent) {
-//		measureTime("----------------handle Command");
+		// measureTime("----------------handle Command");
 
 		String type = intent.getStringExtra("type");
 		String value = intent.getStringExtra("value");
@@ -77,24 +104,48 @@ public class SendingService extends Service {
 		}, 1000 * 60);
 
 	}
-	
 
-	
-	private void measureTime(String tag){
-		long delta = System.currentTimeMillis()-time;
-		time=System.currentTimeMillis();
+	/**
+	 * Measure time.
+	 * 
+	 * @param tag
+	 *            the tag
+	 */
+	private void measureTime(String tag) {
+		long delta = System.currentTimeMillis() - time;
+		time = System.currentTimeMillis();
 		Log.v(TAG, delta + " :" + tag);
 	}
 
+	/**
+	 * The UDP sender
+	 */
 	class SendCommandUDP extends AsyncTask<String, Void, Void> {
+
+		/** The UDP group/address. */
 		private String address;
+
+		/** The port. */
 		private int port;
 
+		/**
+		 * Instantiates a new send command udp.
+		 * 
+		 * @param address
+		 *            the address
+		 * @param port
+		 *            the port
+		 */
 		public SendCommandUDP(String address, int port) {
 			this.address = address;
 			this.port = port;
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected Void doInBackground(String... params) {
 			try {
@@ -106,7 +157,7 @@ public class SendingService extends Service {
 					DatagramPacket p = new DatagramPacket(msg.getBytes("UTF-8"), msg.length(), group, port);
 					s.send(p);
 				} catch (Exception e) {
-					Log.e(TAG, "UDP error " + e.getMessage());
+					Log.e(TAG, "UDP error " + e.toString());
 				} finally {
 					s.close();
 				}
@@ -115,39 +166,57 @@ public class SendingService extends Service {
 			}
 			return null;
 		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-//			stopSelf();
-		}
-
 	}
+
+	/**
+	 * The TCP Sender
+	 */
 	class SendCommandTCP extends AsyncTask<String, Void, Void> {
+
+		/** The port. */
 		private int port;
+
+		/** The IP. */
 		private String IP;
+
+		/** The socket. */
 		Socket s = null;
+
+		/** The output Stream. */
 		OutputStream out = null;
 
+		/**
+		 * Instantiates a new send command tcp.
+		 * 
+		 * @param IP
+		 *            the IP
+		 * @param port
+		 *            the port
+		 */
 		public SendCommandTCP(String IP, int port) {
 			this.port = port;
 			this.IP = IP;
 		}
 
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
 		@Override
 		protected Void doInBackground(String... params) {
 
 			try {
-//				Log.d(TAG, "TCP command, port" + port + ", IP:" + IP);
+				// Log.d(TAG, "TCP command, port" + port + ", IP:" + IP);
 				s = new Socket(IP, port);
 				s.setReuseAddress(true);
 				s.setTcpNoDelay(true);
 				s.setSoTimeout(1);
-				
+
 				out = s.getOutputStream();
-				params[0]+="\n";
+				params[0] += "\n";
 				out.write(params[0].getBytes());
-//				measureTime("----------------written");
+				// measureTime("----------------written");
 
 			} catch (Exception e) {
 				Log.e(TAG, "TCP error " + e.getMessage());
@@ -164,14 +233,5 @@ public class SendingService extends Service {
 
 			return null;
 		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-//			stopSelf();
-		}
-
 	}
-
 }

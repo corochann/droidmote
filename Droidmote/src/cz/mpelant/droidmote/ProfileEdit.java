@@ -18,34 +18,80 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+/**
+ * Edits the profile
+ */
 public class ProfileEdit extends SuperActivity {
 
+	/** The Constant DEFAULT_PROFILE_NAME. */
 	public static final String DEFAULT_PROFILE_NAME = "New Profile";
+	
+	/** The Constant EXTRA_PROFILE_ID. */
 	public static final String EXTRA_PROFILE_ID = "profileId";
 
 	
 
+	/** The buttons. */
 	private Button[] buttons = new Button[12];
+	
+	/** The data provider. */
 	private DataProvider data;
+	
+	/** The profile id. */
 	private long profileId;
+	
+	/** The view. */
 	private LinearLayout view;
+	
+	/** The profile name EditText. */
 	private EditText edProfileName;
+	
+	/** The delete dialog. */
 	private AlertDialog deleteDialog;
 	
+	/**
+	 * The listener interface for receiving editButton events.
+	 * The class that is interested in processing a editButton
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addEditButtonListener<code> method. When
+	 * the editButton event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see EditButtonEvent
+	 */
 	class EditButtonListener implements OnLongClickListener {
+		
+		/** The button id. */
 		private long buttonId;
+		
+		/** The position. */
 		private int pos;
 
+		/**
+		 * Instantiates a new edits the button listener.
+		 *
+		 * @param buttonId the button id
+		 * @param pos the position
+		 */
 		public EditButtonListener(long buttonId, int pos) {
 			this.buttonId = buttonId;
 			this.pos = pos;
 		}
 
+		/**
+		 * Instantiates a new edits an empty button listener.
+		 *
+		 * @param pos the position of an empty button
+		 */
 		public EditButtonListener(int pos) {
 			this.buttonId = -1;
 			this.pos = pos;
 		}
 
+		/**
+		 * Start edit activity.
+		 */
 		private void startEditActivity() {
 			Intent i = new Intent(ProfileEdit.this, ButtonEdit.class);
 			i.putExtra(ButtonEdit.EXTRA_BUTTON_ID, buttonId);
@@ -54,6 +100,9 @@ public class ProfileEdit extends SuperActivity {
 			startActivityForResult(i, EDIT_REQ_CODE);
 		}
 
+		/* (non-Javadoc)
+		 * @see android.view.View.OnLongClickListener#onLongClick(android.view.View)
+		 */
 		@Override
 		public boolean onLongClick(View v) {
 			if (buttonId == -1)
@@ -85,6 +134,9 @@ public class ProfileEdit extends SuperActivity {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -137,14 +189,23 @@ public class ProfileEdit extends SuperActivity {
 
 	}
 
+	/**
+	 * disabling the fullscreen setter
+	 */
 	@Override
 	protected void setFullscreen() {
 	}
 	
+	/**
+	 * disabling the screen lock setter
+	 */
 	@Override
 	protected void setScreenLock() {
 	}
 
+	/**
+	 * Load data.
+	 */
 	private void loadData() {
 		data.open();
 		Cursor c = data.fetchProfile(profileId);
@@ -172,12 +233,14 @@ public class ProfileEdit extends SuperActivity {
 			}
 			buttons[i].setOnLongClickListener(editButtonListener);
 			buttons[i].setText(text);
-//			buttons[i].setBackgroundResource(android.R.drawable.btn_default);
 		}
 		data.close();
 	}
 
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == EDIT_REQ_CODE && resultCode == RESULT_OK) {
@@ -187,6 +250,9 @@ public class ProfileEdit extends SuperActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -198,6 +264,9 @@ public class ProfileEdit extends SuperActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

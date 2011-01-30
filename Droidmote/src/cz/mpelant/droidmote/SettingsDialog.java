@@ -21,18 +21,44 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+/**
+ * The config dialog
+ */
 public class SettingsDialog {
+
+	/** The dialog. */
 	public Dialog dialog;
+
+	/** The TCP IP edittext. */
 	private EditText textIP;
+
+	/** The UDP group edittext. */
 	private EditText textGroup;
+
+	/** The protocol spinner. */
 	private Spinner spProtocol;
+
+	/** The port edittext. */
 	private EditText port;
+
+	/** The context. */
 	private Activity mContext;
 
+	/**
+	 * Instantiates a new settings dialog.
+	 * 
+	 * @param mContext
+	 *            the context
+	 */
 	public SettingsDialog(Activity mContext) {
 		this.mContext = mContext;
 	}
 
+	/**
+	 * Creates the dialog.
+	 * 
+	 * @return the dialog
+	 */
 	public Dialog createDialog() {
 		ArrayAdapter<String> items = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, new String[] { mContext.getResources().getString(R.string.udp), mContext.getResources().getString(R.string.tcp) });
 		items.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -154,6 +180,12 @@ public class SettingsDialog {
 		return dialog;
 	}
 
+	/**
+	 * Process the result from QR scanner.
+	 * 
+	 * @param data
+	 *            the result intent
+	 */
 	public void QRActivityResult(Intent data) {
 		String contents = data.getStringExtra("SCAN_RESULT");
 		String[] parts = contents.split(";");
@@ -174,5 +206,5 @@ public class SettingsDialog {
 			textGroup.setText(parts[3]);
 		}
 	}
-	
+
 }
