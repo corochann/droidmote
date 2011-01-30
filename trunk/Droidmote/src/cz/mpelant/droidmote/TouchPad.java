@@ -15,23 +15,52 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+/**
+ * The TouchPad.
+ */
 public class TouchPad extends SuperActivity implements OnTouchListener {
 
+	/** The touchpad layout. */
 	private LinearLayout touchpad;
+
+	/** The mouse left button. */
 	private Button btMouseLeft;
+
+	/** The mouse right button. */
 	private Button btMouseRight;
+
+	/** The show keyboard button. */
 	private ImageButton btShowKeyboard;
+
+	/** The start point. */
 	private Point startPoint;
+
+	/** The time user touches the screen with 1st finger. */
 	private long pressedTime1;
+
+	/** The user releases the 1st finger. */
 	private long releasedTime1;
+
+	/** The pressed user touches the screen with 2nd finger. */
 	private long pressedTime2;
+
+	/** The releases the 2nd finger. */
 	private long releasedTime2;
+
+	/** The button pressed. */
 	private int buttonPressed = 0;
 
+	/** The InputMethodManager. */
 	private InputMethodManager imgr;
 
+	/** The time in which the second touch on touchpad is recognized as a click */
 	public static final int TIME_MOUSE_CLICK = 200;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see cz.mpelant.droidmote.SuperActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,19 +76,37 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 		checkWiFi();
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
+	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		handleEvent(event);
 		return true;
 	}
 
+	/**
+	 * Checks if the poit is in a view.
+	 * 
+	 * @param point
+	 *            the point
+	 * @param view
+	 *            the view
+	 * @return true, if is in viewa
+	 */
 	private boolean isInView(Point point, View view) {
 		if (point.x > view.getLeft() && point.x < view.getRight() && point.y > view.getTop() && point.y < view.getBottom())
 			return true;
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onKeyDown(int, android.view.KeyEvent)
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU)
@@ -103,6 +150,11 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onKeyUp(int, android.view.KeyEvent)
+	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (event.getAction() == KeyEvent.ACTION_UP) {
@@ -118,6 +170,12 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 		return super.onKeyUp(keyCode, event);
 	}
 
+	/**
+	 * Handle event.
+	 * 
+	 * @param event
+	 *            the event
+	 */
 	private void handleEvent(MotionEvent event) {
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
@@ -231,6 +289,11 @@ public class TouchPad extends SuperActivity implements OnTouchListener {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();

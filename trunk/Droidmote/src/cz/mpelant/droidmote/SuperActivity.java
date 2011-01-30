@@ -21,41 +21,90 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 
+/**
+ * The Super Activity which other activities inherits from.
+ * Provides basic functionality that is common in all these activities.
+ */
 public class SuperActivity extends Activity {
-	public static String TAG = "droidmote";
-	public static String SCREENLOCK = "screenLock";
+	
+	/** The TAG. */
+	public static final String TAG = "droidmote";
+	
+	/** The SCREENLOCK constant for SharedPreferences. */
+	public static final String SCREENLOCK = "screenLock";
+	
+	/** The Constant that indicates settings dialog. */
 	public static final int DIALOG_SETTINGS = 1;
+	
+	/** The Constant that indicates enable wifi dialog. */
 	public static final int DIALOG_ENABLE_WIFI = 2;
 	
+	/** The DATA_IP constant for SharedPreferences. */
 	public static final String DATA_IP = "serverIP";
+	
+	/** The DATA_PROTOCOL constant for SharedPreferences. */
 	public static final String DATA_PROTOCOL = "protocol";
+	
+	/** The DATA_PORT constant for SharedPreferences. */
 	public static final String DATA_PORT = "port";
+	
+	/** The DATA_UDP_ADDRESS constant for SharedPreferences. */
 	public static final String DATA_UDP_ADDRESS = "UDPAddress";
+	
+	/** The DATA_LAST_PROFILE constant for SharedPreferences. */
 	public static final String DATA_LAST_PROFILE = "lastProfile";
 	
+	/** The PROTOCOL_UDP value for SharedPreferences. */
 	public static final int PROTOCOL_UDP = 0;
+	
+	/** The PROTOCOL_TCP value for SharedPreferences. */
 	public static final int PROTOCOL_TCP = 1;
 
+	/** The Constant DEFAULT_IP. */
 	public static final String DEFAULT_IP = "192.168.0.1";
+	
+	/** The Constant DEFAULT_PROTOCOL. */
 	public static final int DEFAULT_PROTOCOL = PROTOCOL_UDP;
+	
+	/** The Constant DEFAULT_PORT. */
 	public static final int DEFAULT_PORT = 44522;
+	
+	/** The Constant DEFAULT_UDP_ADDRESS. */
 	public static final String DEFAULT_UDP_ADDRESS = "228.36.4.70";
 	
+	/** The Constant ACTION for broadcasting intent */
 	public static final String ACTION = "cz.mpelant.droidmote.SEND_TO_PC";
+	
+	/** The request code for editing. */
 	public static final int EDIT_REQ_CODE = 1;
+	
+	/** The request code for getting the QR code */
 	public static final int DECODE_QR_REQ_CODE = 2;
 	
+	/** The DATA_FULLSCREEN constant for SharedPreferences. */
 	public static final String DATA_FULLSCREEN = "fullscreen";
+	
+	/** The titlebar. */
 	protected View titlebar;
+	
+	/** The settings dialog. */
 	protected SettingsDialog settingsDialog;
+	
+	/** The shared preferences. */
 	protected SharedPreferences sp;
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		super.onCreate(savedInstanceState);
 	}
 
+	/**
+	 * Checks if the wifi is enabled. If not, shows the dialog.
+	 */
 	protected void checkWiFi() {
 		ConnectivityManager conMan = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -67,6 +116,9 @@ public class SuperActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Sets the fullscreen.
+	 */
 	protected void setFullscreen() {
 		Log.d(TAG, "Fullscreen - " + sp.getBoolean(DATA_FULLSCREEN, false));
 		if (sp.getBoolean(DATA_FULLSCREEN, false)) {
@@ -83,6 +135,9 @@ public class SuperActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Sets the screen lock.
+	 */
 	protected void setScreenLock() {
 		if (sp.getBoolean(SCREENLOCK, false))
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -90,6 +145,9 @@ public class SuperActivity extends Activity {
 			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateDialog(int)
+	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -115,6 +173,9 @@ public class SuperActivity extends Activity {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -127,6 +188,9 @@ public class SuperActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	protected void onResume() {
 		setFullscreen();
@@ -134,6 +198,9 @@ public class SuperActivity extends Activity {
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		MenuItem mi = menu.findItem(R.id.toggleScreenLock);
@@ -146,6 +213,9 @@ public class SuperActivity extends Activity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent i;

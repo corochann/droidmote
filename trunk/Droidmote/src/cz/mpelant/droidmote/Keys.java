@@ -2,30 +2,73 @@ package cz.mpelant.droidmote;
 
 import android.view.KeyEvent;
 
+/**
+ * The Class Keys.
+ */
 public class Keys {
+	
+	/** The arrows. */
 	private Key[] arrows;
+	
+	/** The characters. */
 	private Key[] characters;
+	
+	/** The special symbols. */
 	private Key[] special;
+	
+	/**
+	 * The Class Key.
+	 */
 	class Key{
+		
+		/** The key event. */
 		private String keyEvent;
+		
+		/** The name. */
 		private String name;
 		
+		/**
+		 * Instantiates a new key.
+		 *
+		 * @param keyEvent the key event
+		 * @param name the name
+		 */
 		public Key(String keyEvent, String name){
 			this.name=name;
 			this.keyEvent=keyEvent;
 		}
+		
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
 		public String getName() {
 			return name;
 		}
+		
+		/**
+		 * Gets the key event.
+		 *
+		 * @return the key event
+		 */
 		public String getKeyEvent() {
 			return keyEvent;
 		}
+		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			return name;
 		}
 
 	}
+	
+	/**
+	 * Instantiates a new keys.
+	 */
 	public Keys(){
 		int i=0;
 		arrows=new Key[4];
@@ -149,16 +192,39 @@ public class Keys {
 		
 	}
 	
+	/**
+	 * Gets the arrow keys.
+	 *
+	 * @return the arrows
+	 */
 	public Key[] getArrows(){
 		return arrows;
 	}
+	
+	/**
+	 * Gets the character keys.
+	 *
+	 * @return the characters
+	 */
 	public Key[] getCharacters(){
 		return characters;
 	}
+	
+	/**
+	 * Gets the special keys.
+	 *
+	 * @return the special
+	 */
 	public Key[] getSpecial(){
 		return special;
 	}
 
+	/**
+	 * Gets the names from the keys
+	 *
+	 * @param keys the keys
+	 * @return the names
+	 */
 	public static String[] getNames(Key[] keys) {
 		int max;
 		for (max = 1; max < keys.length; max++) {
@@ -175,6 +241,13 @@ public class Keys {
 		}
 		return rtrn;
 	}
+	
+	/**
+	 * Gets the name of the key.
+	 *
+	 * @param keyEvent the key event
+	 * @return the name
+	 */
 	public String getName(String keyEvent){
 		for(int i=0; i<arrows.length; i++){
 			try {
@@ -208,6 +281,12 @@ public class Keys {
 	}
 	
 
+	/**
+	 * Gets the key event.
+	 *
+	 * @param keyCode the key code
+	 * @return the key event
+	 */
 	public int getKeyEvent(String keyCode){
 		try {
 			return KeyEvent.class.getDeclaredField(keyCode).getInt(null);

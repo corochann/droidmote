@@ -7,19 +7,55 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * 
+ * This listener is used for sending the commands after user clicks on a button
+ * 
+ * The listener interface for receiving sendBroadcastButton events.
+ * The class that is interested in processing a sendBroadcastButton
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSendBroadcastButtonListener<code> method. When
+ * the sendBroadcastButton event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SendBroadcastButtonEvent
+ */
 public class SendBroadcastButtonListener implements OnClickListener {
+	
+	/** The button id. */
 	private long buttonId;
+	
+	/** The type of the command. */
 	private String type;
+	
+	/** The action. */
 	private String action;
+	
+	/** The data provider. */
 	private DataProvider data;
+	
+	/** The context. */
 	private Activity mContext;
 
+	/**
+	 * Instantiates a new send broadcast button listener.
+	 *
+	 * @param buttonId the button id
+	 * @param data the data provider
+	 * @param mContext the context
+	 */
 	public SendBroadcastButtonListener(long buttonId, DataProvider data, Activity mContext) {
 		this.buttonId = buttonId;
 		this.data=data;
 		this.mContext = mContext;
 	}
 
+	/**
+	 * Retrieve the button data.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean retrieveData() {
 		action = "";
 		String append = "";
@@ -49,6 +85,9 @@ public class SendBroadcastButtonListener implements OnClickListener {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		data.open();

@@ -12,12 +12,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Displays the profile.
+ */
 public class ProfileView extends SuperActivity {
+	
+	/** The buttons. */
 	private Button[] buttons = new Button[12];
+	
+	/** The data provider. */
 	private DataProvider data;
+	
+	/** The profile id. */
 	private long profileId = -1;
+	
+	/** The delete dialog. */
 	private AlertDialog deleteDialog;
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +70,9 @@ public class ProfileView extends SuperActivity {
 		loadData();
 	}
 
+	/**
+	 * Load data.
+	 */
 	private void loadData() {
 		data.open();
 		for (int i = 0; i < 12; i++) {
@@ -77,6 +94,9 @@ public class ProfileView extends SuperActivity {
 		data.close();
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onResume()
+	 */
 	@Override
 	protected void onResume() {
 		data.open();
@@ -92,6 +112,9 @@ public class ProfileView extends SuperActivity {
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -102,6 +125,9 @@ public class ProfileView extends SuperActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -109,6 +135,9 @@ public class ProfileView extends SuperActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	/* (non-Javadoc)
+	 * @see cz.mpelant.droidmote.SuperActivity#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent i;

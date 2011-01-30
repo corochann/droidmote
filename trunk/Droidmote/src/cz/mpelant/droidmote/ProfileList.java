@@ -17,27 +17,56 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+/**
+ * Displays the profile list.
+ */
 public class ProfileList extends Activity {
+	
+	/** The profiles. */
 	private ArrayList<ProfileItem> profiles;
+	
+	/** The data provider. */
 	private DataProvider data;
 
+	/** The TAG. */
 	public static String TAG = "droidmote";
+	
+	/** The list view. */
 	private ListView listView;
 
+	/**
+	 * The Class ProfileItem for the Adapter which holds the data for a specific profile.
+	 */
 	class ProfileItem {
+		
+		/** The id of the profile. */
 		public long id;
+		
+		/** The name of the profile. */
 		public String name;
 
+		/**
+		 * Instantiates a new profile item.
+		 *
+		 * @param id the id
+		 * @param name the name
+		 */
 		public ProfileItem(long id, String name) {
 			this.id = id;
 			this.name = name;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
 		@Override
 		public String toString() {
 			return name;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
 		@Override
 		public boolean equals(Object o) {
 			ProfileItem item = (ProfileItem) o;
@@ -47,15 +76,34 @@ public class ProfileList extends Activity {
 		}
 	}
 
+	/**
+	 * The listener interface for receiving editItem events.
+	 * The class that is interested in processing a editItem
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addEditItemListener<code> method. When
+	 * the editItem event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see EditItemEvent
+	 */
 	class EditItemListener implements AdapterView.OnItemLongClickListener {
-		ProfileItem item;
+		
+		/** The item. */
+		private ProfileItem item;
 
+		/**
+		 * Start edit activity.
+		 */
 		private void startEditActivity() {
 			Intent i = new Intent(ProfileList.this, ProfileEdit.class);
 			i.putExtra(ProfileEdit.EXTRA_PROFILE_ID, item.id);
 			startActivityForResult(i, 0);
 		}
 
+		/* (non-Javadoc)
+		 * @see android.widget.AdapterView.OnItemLongClickListener#onItemLongClick(android.widget.AdapterView, android.view.View, int, long)
+		 */
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position, long id) {
 			item = profiles.get(position);
@@ -89,6 +137,9 @@ public class ProfileList extends Activity {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.profile_list);
@@ -120,12 +171,18 @@ public class ProfileList extends Activity {
 		super.onCreate(savedInstanceState);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		loadData();
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	/**
+	 * Load data.
+	 */
 	private void loadData() {
 		profiles = new ArrayList<ProfileItem>();
 		data.open();
