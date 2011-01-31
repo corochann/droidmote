@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string
-		name="hello">Hello World, MainActivity!</string>
-	<string
 		name="app_name">DroidMote</string>
 	<string
 		name="characters">Characters</string>
@@ -19,15 +17,15 @@
 	<string
 		name="btActionGroup">group</string>
 	<string
-		name="save">Uložit</string>
+		name="save">Save</string>
 	<string
-		name="cancel">Storno</string>
+		name="cancel">Cancel</string>
 	<string
-		name="setIP">IP adresa počítače</string>
+		name="setIP">IP address of PC</string>
 	<string
-		name="setGroup">UDP skupina</string>
+		name="setGroup">UDP group</string>
 	<string
-		name="setProtocol">Protokol</string>
+		name="setProtocol">Protocol</string>
 	<string
 		name="setPort">Port</string>
 	<string
@@ -35,45 +33,44 @@
 	<string
 		name="tcp">TCP</string>
 	<string
-		name="settings">Nastavení</string>
+		name="settings">Settings</string>
 	<string
 		name="scanSettings">ScanQR</string>
 	<string
-		name="profileName">Jméno profilu</string>
+		name="profileName">Profile Name</string>
 	<string
-		name="add">Přidat</string>
+		name="add">Add</string>
 	<string
-		name="edit">Editovat</string>
+		name="edit">Edit</string>
 	<string
-		name="clear">Smazat</string>
+		name="clear">Clear</string>
 	<string
-		name="delete">Smazat</string>
+		name="delete">Delete</string>
 	<string
-		name="profileList">Seznam profilů</string>
+		name="profileList">Profile list</string>
 	<string
-		name="deleteMessage">Opravdu chcete smazat tento profil?</string>
+		name="deleteMessage">Do you really want to delete this profile?</string>
 	<string
-		name="deleteTitle">Smazat?</string>
+		name="deleteTitle">Delete?</string>
 	<string
 		name="touchpad">Touchpad</string>
 	<string
-		name="toggleFullscreen">Přepnout Fullscreen</string>
+		name="toggleFullscreen">Toggle Fullscreen</string>
 	<string
-		name="invalidPort">Zadali jste špatně port. Musí být v rozmezí 0-65535</string>
+		name="invalidPort">You entered an illegal port number. It has to be in a range between 0-65535.</string>
 	<string
-		name="qr_not_found_title">Čtečka kódů nenalezena</string>
+		name="qr_not_found_title">The Barcode scanner hasn\'t been found.</string>
 	<string
-		name="qr_not_found_message">V telefonu nemáte nainstalovanou čtečku QR kodů. Nainstalovat z Marketu?</string>
+		name="qr_not_found_message">You dont have a Barcode scanner in your device. Do you want to install it from the Market?</string>
 	<string
-		name="screenLockOn">Deaktivovat ScreenLock</string>
+		name="screenLockOn">Disable ScreenLock</string>
 	<string
-		name="screenLockOff">Aktivovat ScreenLock</string>
+		name="screenLockOff">Enable ScreenLock</string>
 	<string
-		name="wifi_dialog_title">Aktivovat WiFi?</string>
+		name="wifi_dialog_title">Enable WiFi?</string>
 	<string
-		name="wifi_dialog_message">Nejste připojeni k žádné WiFi síti - Droidmote nebude s největší pravděpodobností fungovat.
-		Chcete se nyní připojit k WiFi?</string>
+		name="wifi_dialog_message">Currently you are not connected to any WiFi - DroidMote probably won\'t work. Do you want to connect now?</string>
 	<string
-		name="wifi_dialog_ok">Připojit</string>
+		name="wifi_dialog_ok">Connect</string>
 
 </resources>
