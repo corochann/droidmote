@@ -53,12 +53,6 @@ public class MainWindow extends JFrame implements ActionListener {
 		initialize();
 		serverTCP = new ServerTCP(this);
 		serverUDP = new ServerUDP(this);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				onClose();
-			}
-		});
 	}
 
 	/**
@@ -67,10 +61,18 @@ public class MainWindow extends JFrame implements ActionListener {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setResizable(false);
-		this.setSize(300, getHeight());
-		this.setContentPane(getJContentPane());
-		this.setTitle("JFrame");
+		setResizable(false);
+		setSize(300, getHeight());
+		setContentPane(getJContentPane());
+		setTitle("Droidmote");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				onClose();
+			}
+		});
+		pack();
+		setVisible(true);
 	}
 
 	/**
