@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -63,6 +64,9 @@ public class QRWindow extends JFrame {
 
 	/** The main window. */
 	private MainWindow mainWindow;
+	
+	/** The localization messages. */
+	private ResourceBundle messages;
 
 	/**
 	 * The Class QRPanel.
@@ -94,6 +98,7 @@ public class QRWindow extends JFrame {
 	 */
 	public QRWindow(MainWindow mainWindow) {
 		super();
+		messages=Utf8ResourceBundle.getBundle("cz.mpelant.droidmotepc.data.MessagesBundle");
 		initialize();
 		this.mainWindow = mainWindow;
 
@@ -153,7 +158,7 @@ public class QRWindow extends JFrame {
 			gBC.gridx = 0;
 			gBC.gridy = 0;
 			gBC.ipadx = 5;
-			settings.add(new JLabel("Port:"), gBC);
+			settings.add(new JLabel(messages.getString("port")+":"), gBC);
 
 			gBC.gridx = 1;
 			gBC.ipadx = 50;
@@ -162,7 +167,7 @@ public class QRWindow extends JFrame {
 			gBC.ipadx = 5;
 			gBC.gridx = 2;
 			gBC.insets = new Insets(0, 10, 0, 0);
-			settings.add(new JLabel("UDP address:"), gBC);
+			settings.add(new JLabel(messages.getString("udp_address")+":"), gBC);
 
 			gBC.gridx = 3;
 			gBC.ipadx = 150;
@@ -171,7 +176,7 @@ public class QRWindow extends JFrame {
 			gBC.ipadx = 5;
 			gBC.gridx = 0;
 			gBC.gridy = 1;
-			settings.add(new JLabel("Accept protocols:"), gBC);
+			settings.add(new JLabel(messages.getString("accept_protocols")+":"), gBC);
 
 			gBC.gridx = 1;
 			settings.add(cbTCP, gBC);
@@ -180,7 +185,7 @@ public class QRWindow extends JFrame {
 			settings.add(cbUDP, gBC);
 
 			gBC.gridx = 3;
-			settings.add(new JLabel("Your current IP is: " + ServerTCP.getIP()), gBC);
+			settings.add(new JLabel(messages.getString("current_ip")+": " + ServerTCP.getIP()), gBC);
 
 			gBC.insets = new Insets(0, 0, 0, 0);
 			gBC.ipady = 20;
@@ -280,11 +285,11 @@ public class QRWindow extends JFrame {
 		try {
 			portInt = Integer.parseInt(port.getText().toString());
 		} catch (Exception e1) {
-			showAlertDialog("Zadali jste špatně port. Musí být v rozmezí 0-65535");
+			showAlertDialog(messages.getString("illegal_port"));
 			return;
 		}
 		if (portInt > 65535) {
-			showAlertDialog("Zadali jste špatně port. Musí být v rozmezí 0-65535");
+			showAlertDialog(messages.getString("illegal_port"));
 			return;
 		}
 		SharedPreferences.putInt(SharedPreferences.DATA_PORT, Integer.parseInt(port.getText()));
@@ -302,7 +307,7 @@ public class QRWindow extends JFrame {
 	private JButton getButtonSave() {
 		if (save == null) {
 			save = new JButton();
-			save.setText("Ulozit");
+			save.setText(messages.getString("save"));
 			save.addActionListener(new ActionListener() {
 
 				@Override
@@ -366,7 +371,7 @@ public class QRWindow extends JFrame {
 	private JButton getButtonQR() {
 		if (showQR == null) {
 			showQR = new JButton();
-			showQR.setText("Zobrazit QR");
+			showQR.setText(messages.getString("show_qr"));
 			showQR.addActionListener(new ActionListener() {
 
 				@Override
@@ -374,7 +379,7 @@ public class QRWindow extends JFrame {
 					refreshQR();
 					if (!QRCode.isVisible()) {
 						QRCode.setVisible(true);
-						showQR.setText("Refreshnout QR");
+						showQR.setText(messages.getString("refresh_qr"));
 						QRWindow.this.pack();
 					}
 
