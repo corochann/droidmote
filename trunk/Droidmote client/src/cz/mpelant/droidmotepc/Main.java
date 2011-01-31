@@ -11,8 +11,7 @@ public class Main {
 	 * @param s the arguments
 	 */
 	public static void main(String s[]) {
-		MainWindow frame = new MainWindow();
-		frame.pack();
-		frame.setVisible(true);
+		new MainWindow();
+		
 	}
 }

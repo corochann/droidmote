@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * The Class QRWindow.
+ * Settings window.
  */
 public class QRWindow extends JFrame {
 
@@ -64,7 +64,7 @@ public class QRWindow extends JFrame {
 
 	/** The main window. */
 	private MainWindow mainWindow;
-	
+
 	/** The localization messages. */
 	private ResourceBundle messages;
 
@@ -98,10 +98,9 @@ public class QRWindow extends JFrame {
 	 */
 	public QRWindow(MainWindow mainWindow) {
 		super();
-		messages=Utf8ResourceBundle.getBundle("cz.mpelant.droidmotepc.data.MessagesBundle");
-		initialize();
+		messages = Utf8ResourceBundle.getBundle("cz.mpelant.droidmotepc.data.MessagesBundle");
 		this.mainWindow = mainWindow;
-
+		initialize();
 	}
 
 	/**
@@ -112,7 +111,7 @@ public class QRWindow extends JFrame {
 	private void initialize() {
 		qrGenerator = new QRGenerator(10);
 		this.setContentPane(getJContentPane());
-		this.setTitle("JFrame");
+		setTitle("Droidmote | " + messages.getString("settings"));
 		this.setResizable(true);
 
 	}
@@ -158,7 +157,7 @@ public class QRWindow extends JFrame {
 			gBC.gridx = 0;
 			gBC.gridy = 0;
 			gBC.ipadx = 5;
-			settings.add(new JLabel(messages.getString("port")+":"), gBC);
+			settings.add(new JLabel(messages.getString("port") + ":"), gBC);
 
 			gBC.gridx = 1;
 			gBC.ipadx = 50;
@@ -167,7 +166,7 @@ public class QRWindow extends JFrame {
 			gBC.ipadx = 5;
 			gBC.gridx = 2;
 			gBC.insets = new Insets(0, 10, 0, 0);
-			settings.add(new JLabel(messages.getString("udp_address")+":"), gBC);
+			settings.add(new JLabel(messages.getString("udp_address") + ":"), gBC);
 
 			gBC.gridx = 3;
 			gBC.ipadx = 150;
@@ -176,7 +175,7 @@ public class QRWindow extends JFrame {
 			gBC.ipadx = 5;
 			gBC.gridx = 0;
 			gBC.gridy = 1;
-			settings.add(new JLabel(messages.getString("accept_protocols")+":"), gBC);
+			settings.add(new JLabel(messages.getString("accept_protocols") + ":"), gBC);
 
 			gBC.gridx = 1;
 			settings.add(cbTCP, gBC);
@@ -185,7 +184,7 @@ public class QRWindow extends JFrame {
 			settings.add(cbUDP, gBC);
 
 			gBC.gridx = 3;
-			settings.add(new JLabel(messages.getString("current_ip")+": " + ServerTCP.getIP()), gBC);
+			settings.add(new JLabel(messages.getString("current_ip") + ": " + ServerTCP.getIP()), gBC);
 
 			gBC.insets = new Insets(0, 0, 0, 0);
 			gBC.ipady = 20;
