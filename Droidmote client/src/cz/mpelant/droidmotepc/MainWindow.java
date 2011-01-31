@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,12 +40,16 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	/** The udp server. */
 	private ServerUDP serverUDP = null;
+	
+	/** The localization messages. */
+	private ResourceBundle messages;
 
 	/**
 	 * This is the default constructor.
 	 */
 	public MainWindow() {
 		super();
+		messages=Utf8ResourceBundle.getBundle("cz.mpelant.droidmotepc.data.MessagesBundle");
 		initialize();
 		serverTCP = new ServerTCP(this);
 		serverUDP = new ServerUDP(this);
@@ -54,7 +59,6 @@ public class MainWindow extends JFrame implements ActionListener {
 				onClose();
 			}
 		});
-
 	}
 
 	/**
@@ -120,7 +124,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JButton getStartStop() {
 		if (startStop == null) {
 			startStop = new JButton();
-			startStop.setText("Start");
+			startStop.setText(messages.getString("start"));
 			startStop.addActionListener(this);
 
 		}
@@ -135,7 +139,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JButton getButtonSettings() {
 		if (buttonSettings == null) {
 			buttonSettings = new JButton();
-			buttonSettings.setText("Nastaveni");
+			buttonSettings.setText(messages.getString("settings"));
 			buttonSettings.addActionListener(new ActionListener() {
 
 				@Override
@@ -230,9 +234,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	 */
 	public synchronized void updateButtonText() {
 		if (serverTCP.isRunning() || serverUDP.isRunning())
-			startStop.setText("Stop");
+			startStop.setText(messages.getString("stop"));
 		else
-			startStop.setText("Start");
+			startStop.setText(messages.getString("start"));
 	}
 
 	/**
@@ -253,7 +257,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	 */
 	public void onClose() {
 		if (serverTCP.isRunning() || serverUDP.isRunning()) {
-			switch (JOptionPane.showConfirmDialog(MainWindow.this, "Opravdu chcete ukoncit program?", "Ukoncovaci dialog", JOptionPane.WARNING_MESSAGE)) {
+			switch (JOptionPane.showConfirmDialog(MainWindow.this,messages.getString("exit_dialog_message"), messages.getString("exit_dialog_title"), JOptionPane.WARNING_MESSAGE)) {
 			case JOptionPane.OK_OPTION:
 				stopTCPListener();
 				stopUDPListener();
