@@ -53,6 +53,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		initialize();
 		serverTCP = new ServerTCP(this);
 		serverUDP = new ServerUDP(this);
+		startServers();
 	}
 
 	/**
